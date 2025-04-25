@@ -1,13 +1,12 @@
-
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Award, Star, Trophy } from 'lucide-react';
+import { Award, Star, Trophy, Microscope, FlaskConical, Lightbulb } from 'lucide-react';
+import { AchievementCard, Achievement } from '@/components/achievements/AchievementCard';
+import { AchievementStats } from '@/components/achievements/AchievementStats';
+import { AchievementSection } from '@/components/achievements/AchievementSection';
 
 const Achievements = () => {
-  // Sample achievement data
-  const achievements = [
+  const achievements: Achievement[] = [
     {
       id: 1,
       title: 'Biology Beginner',
@@ -79,87 +78,43 @@ const Achievements = () => {
         <div className="mb-8 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Achievements & Badges</h1>
           <p className="text-gray-600 mt-2">Track your progress and earn rewards as you complete experiments</p>
-          
-          <div className="mt-6 flex justify-center items-center space-x-4">
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-lab-blue">8</div>
-              <div className="text-sm text-gray-500">Experiments<br/>Completed</div>
-            </div>
-            <div className="h-12 w-px bg-gray-200"></div>
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-amber-500">2</div>
-              <div className="text-sm text-gray-500">Badges<br/>Earned</div>
-            </div>
-            <div className="h-12 w-px bg-gray-200"></div>
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-lab-purple">43%</div>
-              <div className="text-sm text-gray-500">Overall<br/>Progress</div>
-            </div>
-          </div>
+          <AchievementStats />
         </div>
-        
-        {/* Special Achievements */}
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <Star className="h-5 w-5 text-amber-500 mr-2" />
-            Special Achievements
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {specialSectionData.map((achievement) => (
-              <AchievementCard key={achievement.id} achievement={achievement} />
-            ))}
-          </div>
-        </div>
-        
-        {/* Subject Achievements */}
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <Microscope className="h-5 w-5 text-lab-green mr-2" />
-            Biology Achievements
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {biologySectionData.map((achievement) => (
-              <AchievementCard key={achievement.id} achievement={achievement} />
-            ))}
-          </div>
-        </div>
-        
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <FlaskConical className="h-5 w-5 text-lab-blue mr-2" />
-            Chemistry Achievements
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {chemistrySectionData.map((achievement) => (
-              <AchievementCard key={achievement.id} achievement={achievement} />
-            ))}
-          </div>
-        </div>
-        
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <Lightbulb className="h-5 w-5 text-lab-purple mr-2" />
-            Physics Achievements
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {physicsSectionData.map((achievement) => (
-              <AchievementCard key={achievement.id} achievement={achievement} />
-            ))}
-          </div>
-        </div>
-        
-        {/* Challenge Achievements */}
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <Trophy className="h-5 w-5 text-amber-500 mr-2" />
-            Challenge Achievements
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {challengeSectionData.map((achievement) => (
-              <AchievementCard key={achievement.id} achievement={achievement} />
-            ))}
-          </div>
-        </div>
+
+        <AchievementSection
+          title="Special Achievements"
+          icon={<Star />}
+          achievements={specialSectionData}
+          iconColor="text-amber-500"
+        />
+
+        <AchievementSection
+          title="Biology Achievements"
+          icon={<Microscope />}
+          achievements={biologySectionData}
+          iconColor="text-lab-green"
+        />
+
+        <AchievementSection
+          title="Chemistry Achievements"
+          icon={<FlaskConical />}
+          achievements={chemistrySectionData}
+          iconColor="text-lab-blue"
+        />
+
+        <AchievementSection
+          title="Physics Achievements"
+          icon={<Lightbulb />}
+          achievements={physicsSectionData}
+          iconColor="text-lab-purple"
+        />
+
+        <AchievementSection
+          title="Challenge Achievements"
+          icon={<Trophy />}
+          achievements={challengeSectionData}
+          iconColor="text-amber-500"
+        />
       </main>
       
       <footer className="bg-white py-6 border-t">
@@ -170,56 +125,5 @@ const Achievements = () => {
     </div>
   );
 };
-
-// Achievement Card Component
-interface Achievement {
-  id: number;
-  title: string;
-  description: string;
-  progress: number;
-  icon: React.ReactNode;
-  completed: boolean;
-  category: string;
-}
-
-const AchievementCard = ({ achievement }: { achievement: Achievement }) => {
-  return (
-    <Card 
-      className={`relative overflow-hidden ${
-        achievement.completed ? 'border-amber-300 shadow-amber-100 shadow-lg' : 'border-gray-200'
-      }`}
-    >
-      {achievement.completed && (
-        <div className="absolute top-0 right-0">
-          <div className="w-16 h-16 bg-amber-500 rotate-45 transform origin-bottom-left"></div>
-          <Star className="absolute top-2 right-2 h-4 w-4 text-white" />
-        </div>
-      )}
-      <CardContent className="p-4">
-        <div className="flex items-center mb-3">
-          <div className={`p-2 rounded-lg ${
-            achievement.completed ? 'bg-amber-100' : 'bg-gray-100'
-          } mr-3`}>
-            {achievement.icon}
-          </div>
-          <div>
-            <h3 className="font-medium">{achievement.title}</h3>
-            <p className="text-sm text-gray-600">{achievement.description}</p>
-          </div>
-        </div>
-        <div className="space-y-2">
-          <Progress value={achievement.progress} className="h-2" />
-          <div className="text-xs flex justify-between text-gray-500">
-            <span>{achievement.progress}% complete</span>
-            {achievement.completed && <span className="text-amber-500 font-medium">Completed!</span>}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-// Import necessary icons for the component
-import { Microscope, FlaskConical, Lightbulb, Clock } from 'lucide-react';
 
 export default Achievements;
