@@ -1,6 +1,6 @@
 import React from 'react';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Award, Star, Trophy, Microscope, FlaskConical, Lightbulb } from 'lucide-react';
+import { Award, Star, Trophy, Microscope, FlaskConical, Lightbulb, Clock } from 'lucide-react';
 import { AchievementCard, Achievement } from '@/components/achievements/AchievementCard';
 import { AchievementStats } from '@/components/achievements/AchievementStats';
 import { AchievementSection } from '@/components/achievements/AchievementSection';
@@ -63,7 +63,6 @@ const Achievements = () => {
     }
   ];
 
-  // Group achievements by category
   const biologySectionData = achievements.filter(a => a.category === 'biology');
   const chemistrySectionData = achievements.filter(a => a.category === 'chemistry');
   const physicsSectionData = achievements.filter(a => a.category === 'physics');
