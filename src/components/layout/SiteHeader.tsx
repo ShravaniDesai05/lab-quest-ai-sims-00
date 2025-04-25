@@ -2,14 +2,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Flask, BookOpen, Award } from 'lucide-react';
+import { FlaskConical, BookOpen, Award } from 'lucide-react';
 
 const SiteHeader = () => {
   return (
     <header className="sticky top-0 z-40 w-full bg-white border-b border-gray-100 shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <Flask className="h-8 w-8 text-lab-blue" />
+          <FlaskConical className="h-8 w-8 text-lab-blue" />
           <Link to="/" className="text-xl font-bold tracking-tight text-gray-900">
             Science Lab AI
           </Link>

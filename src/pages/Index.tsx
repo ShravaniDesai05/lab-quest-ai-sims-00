@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
   Microscope, 
-  Flask, 
+  FlaskConical, 
   Lightbulb, 
   Award, 
   Timer, 
@@ -45,7 +44,7 @@ const Index = () => {
               <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-lab-green/10 rounded-full blur-xl animate-pulse-subtle"></div>
               <div className="relative z-10 flex items-center justify-center">
                 <div className="w-64 h-64 rounded-full bg-gray-50 flex items-center justify-center animate-float">
-                  <Flask className="w-32 h-32 text-lab-blue" />
+                  <FlaskConical className="w-32 h-32 text-lab-blue" />
                 </div>
               </div>
             </div>
@@ -84,7 +83,7 @@ const Index = () => {
                 <CardContent className="pt-6">
                   <div className="mb-4 flex justify-center">
                     <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
-                      <Flask className="w-8 h-8 text-lab-blue" />
+                      <FlaskConical className="w-8 h-8 text-lab-blue" />
                     </div>
                   </div>
                   <h3 className="text-xl font-semibold text-center mb-2">Chemistry</h3>
@@ -175,7 +174,7 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between">
             <div className="mb-8 md:mb-0">
               <div className="flex items-center gap-2 mb-4">
-                <Flask className="h-6 w-6 text-lab-blue" />
+                <FlaskConical className="h-6 w-6 text-lab-blue" />
                 <span className="text-xl font-bold">Science Lab AI</span>
               </div>
               <p className="text-gray-400 max-w-md">

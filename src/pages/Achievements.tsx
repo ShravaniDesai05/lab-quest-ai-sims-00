@@ -22,7 +22,7 @@ const Achievements = () => {
       title: 'Chemistry Explorer',
       description: 'Complete any 5 chemistry experiments',
       progress: 40,
-      icon: <Flask className="h-6 w-6 text-lab-blue" />,
+      icon: <FlaskConical className="h-6 w-6 text-lab-blue" />,
       completed: false,
       category: 'chemistry'
     },
@@ -220,6 +220,6 @@ const AchievementCard = ({ achievement }: { achievement: Achievement }) => {
 };
 
 // Import necessary icons for the component
-import { Microscope, Flask, Lightbulb, Clock } from 'lucide-react';
+import { Microscope, FlaskConical, Lightbulb, Clock } from 'lucide-react';
 
 export default Achievements;

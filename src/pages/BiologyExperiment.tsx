@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SiteHeader from '@/components/layout/SiteHeader';
@@ -6,30 +5,24 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Check, ChevronRight, Eye, Info, Timer, Trophy } from 'lucide-react';
+import { ArrowLeft, Check, ChevronRight, Eye, Info, Timer, Trophy, Award, Microscope, FlaskConical } from 'lucide-react';
 
-// Canvas component for p5.js
 const OsmosisSimulation = () => {
   const [saltConcentration, setSaltConcentration] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [potatoSize, setPotatoSize] = useState(100);
   
-  // Simulate osmosis effect based on salt concentration
   useEffect(() => {
     if (isRunning) {
       const timer = setTimeout(() => {
         if (elapsedTime < 100) {
           setElapsedTime(prev => prev + 1);
           
-          // Calculate potato size based on osmosis principles
-          // Low salt: water moves into potato (gets bigger)
-          // High salt: water moves out of potato (gets smaller)
           const targetSize = saltConcentration < 50 
             ? 100 + ((50 - saltConcentration) * 0.6) 
             : 100 - ((saltConcentration - 50) * 0.6);
           
-          // Gradually change size
           setPotatoSize(prev => {
             const diff = targetSize - prev;
             return prev + (diff * 0.1);
@@ -63,9 +56,7 @@ const OsmosisSimulation = () => {
     <div>
       <div className="bg-white border rounded-lg p-4 mb-4">
         <div className="h-64 relative bg-blue-50 rounded-md mb-4 overflow-hidden">
-          {/* Container with water */}
           <div className="absolute inset-0 bg-blue-100">
-            {/* Salt particles */}
             {Array.from({ length: Math.round(saltConcentration / 5) }).map((_, i) => (
               <div 
                 key={i} 
@@ -78,7 +69,6 @@ const OsmosisSimulation = () => {
               />
             ))}
             
-            {/* Potato slice */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div 
                 className="bg-yellow-800 rounded-md transition-all duration-300"
@@ -87,13 +77,11 @@ const OsmosisSimulation = () => {
                   height: `${potatoSize * 0.6}px`
                 }}
               >
-                {/* Cell structure */}
                 <div className="absolute inset-2 border-2 border-dashed border-yellow-600 rounded-sm opacity-70"></div>
               </div>
             </div>
           </div>
           
-          {/* Time indicator */}
           {isRunning && (
             <div className="absolute top-2 right-2 bg-white rounded-full px-2 py-1 text-xs flex items-center">
               <Timer className="w-3 h-3 mr-1" />
@@ -155,11 +143,9 @@ const OsmosisSimulation = () => {
   );
 };
 
-// Main experiment page
 const BiologyExperiment = () => {
   const { experimentId } = useParams<{ experimentId: string }>();
   
-  // Mock experiment data
   const experimentData = {
     title: 'Observing Osmosis in a Potato',
     subject: 'Biology',
