@@ -126,7 +126,7 @@ const Achievements = () => {
         
         <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <Flask className="h-5 w-5 text-lab-blue mr-2" />
+            <FlaskConical className="h-5 w-5 text-lab-blue mr-2" />
             Chemistry Achievements
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
