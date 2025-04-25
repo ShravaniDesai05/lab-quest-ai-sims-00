@@ -1,12 +1,13 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SiteHeader from '@/components/layout/SiteHeader';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, Beaker } from 'lucide-react';
 
 const ChemistryExperiment = () => {
   const { experimentId } = useParams();
+  const [ph, setPh] = useState(7);
   
   // Chemistry experiments data
   const experiments = {
@@ -15,7 +16,14 @@ const ChemistryExperiment = () => {
       description: 'Determine the concentration of an acid or base by neutralizing it with a standard solution of known concentration.',
       difficulty: 'Intermediate',
       duration: '35 minutes',
-      content: 'This experiment demonstrates the principles of acid-base reactions and stoichiometry.'
+      content: 'This experiment demonstrates the principles of acid-base reactions and stoichiometry.',
+      steps: [
+        'Start with a known volume of acid solution in an Erlenmeyer flask',
+        'Add a few drops of indicator (e.g., phenolphthalein)',
+        'Slowly add the base solution from a burette',
+        'Continue until the indicator changes color',
+        'Record the volume of base used'
+      ]
     },
     'flame-test': {
       title: 'Flame Test',
@@ -75,6 +83,13 @@ const ChemistryExperiment = () => {
     );
   }
 
+  const handleTitration = (amount: number) => {
+    setPh(prevPh => {
+      const newPh = prevPh + amount;
+      return Math.max(0, Math.min(14, newPh));
+    });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-blue-50">
       <SiteHeader />
@@ -113,11 +128,47 @@ const ChemistryExperiment = () => {
         
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-xl font-semibold mb-4">Experiment Details</h2>
-          <p>{experiment.content}</p>
-          <div className="mt-8 p-6 bg-blue-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-4">Experiment Coming Soon</h3>
-            <p className="mb-4">We're currently developing the interactive version of this experiment. Check back soon!</p>
-            <Button>Get Notified When Ready</Button>
+          <p className="mb-6">{experiment.content}</p>
+          
+          <Card className="mb-6">
+            <CardContent className="pt-6">
+              <h3 className="text-lg font-semibold mb-4">Interactive Titration Simulation</h3>
+              <div className="flex flex-col items-center space-y-4">
+                <div className="w-full bg-gray-200 rounded-full h-4">
+                  <div 
+                    className="h-4 rounded-full transition-all duration-300"
+                    style={{
+                      width: `${(ph / 14) * 100}%`,
+                      backgroundColor: ph < 7 ? '#ef4444' : ph > 7 ? '#3b82f6' : '#10b981'
+                    }}
+                  />
+                </div>
+                <div className="text-lg font-semibold">pH: {ph.toFixed(1)}</div>
+                <div className="flex space-x-4">
+                  <Button 
+                    onClick={() => handleTitration(-0.5)}
+                    variant="outline"
+                  >
+                    Add Acid
+                  </Button>
+                  <Button 
+                    onClick={() => handleTitration(0.5)}
+                    variant="outline"
+                  >
+                    Add Base
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="bg-blue-50 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold mb-4">Procedure Steps</h3>
+            <ol className="list-decimal list-inside space-y-2">
+              {experiment.steps.map((step, index) => (
+                <li key={index} className="text-gray-700">{step}</li>
+              ))}
+            </ol>
           </div>
         </div>
       </main>
