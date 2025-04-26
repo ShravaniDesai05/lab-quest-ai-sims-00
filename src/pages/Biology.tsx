@@ -14,7 +14,17 @@ const Biology = () => {
       description: 'Explore how water moves across cell membranes by observing changes in potato slices placed in different salt concentrations.',
       difficulty: 'Beginner',
       duration: '30 minutes',
-      image: '/placeholder.svg'
+      image: '/placeholder.svg',
+      path: '/biology/osmosis'
+    },
+    {
+      id: 'blood-groups',
+      title: 'Blood Group Identification',
+      description: 'Learn how to identify different blood groups (A, B, AB, O, Rh+ and Rh-) by simulating the agglutination reaction with antibodies.',
+      difficulty: 'Intermediate',
+      duration: '25 minutes',
+      image: '/placeholder.svg',
+      path: '/biology/blood-groups'
     },
     {
       id: 'onion-cells',
@@ -22,7 +32,8 @@ const Biology = () => {
       description: 'Observe plant cell structure by examining onion cells under a microscope and identifying key cell components.',
       difficulty: 'Beginner',
       duration: '25 minutes',
-      image: '/placeholder.svg'
+      image: '/placeholder.svg',
+      path: '/biology/onion-cells'
     },
     {
       id: 'enzymes',
@@ -30,7 +41,8 @@ const Biology = () => {
       description: 'Investigate how temperature affects enzyme activity by observing catalase breaking down hydrogen peroxide.',
       difficulty: 'Intermediate',
       duration: '40 minutes',
-      image: '/placeholder.svg'
+      image: '/placeholder.svg',
+      path: '/biology/enzymes'
     },
     {
       id: 'photosynthesis',
@@ -38,15 +50,8 @@ const Biology = () => {
       description: 'Measure the rate of photosynthesis by counting oxygen bubbles produced by aquatic plants under different light conditions.',
       difficulty: 'Intermediate',
       duration: '45 minutes',
-      image: '/placeholder.svg'
-    },
-    {
-      id: 'blood-groups',
-      title: 'Blood Group Identification',
-      description: 'Learn how to identify different blood groups by simulating the agglutination reaction with antibodies.',
-      difficulty: 'Advanced',
-      duration: '35 minutes',
-      image: '/placeholder.svg'
+      image: '/placeholder.svg',
+      path: '/biology/photosynthesis'
     }
   ];
 
@@ -72,7 +77,7 @@ const Biology = () => {
               </div>
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="bg-green-100 text-lab-green text-xs font-medium rounded px-2 py-1">
+                  <span className="bg-green-100 text-green-800 text-xs font-medium rounded px-2 py-1">
                     {experiment.difficulty}
                   </span>
                   <div className="flex items-center text-gray-500 text-xs">
@@ -85,7 +90,7 @@ const Biology = () => {
               </CardContent>
               <CardFooter className="pt-0 flex justify-between">
                 <Button asChild variant="outline" size="sm">
-                  <Link to={`/biology/${experiment.id}`}>
+                  <Link to={experiment.path}>
                     Start Experiment
                   </Link>
                 </Button>

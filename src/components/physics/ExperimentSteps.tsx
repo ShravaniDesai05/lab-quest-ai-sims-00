@@ -4,11 +4,12 @@ import { ExperimentStep } from '@/types/experiments';
 
 interface ExperimentStepsProps {
   steps: ExperimentStep[];
+  bgColor?: string;
 }
 
-const ExperimentSteps: React.FC<ExperimentStepsProps> = ({ steps }) => {
+const ExperimentSteps: React.FC<ExperimentStepsProps> = ({ steps, bgColor = "bg-purple-50" }) => {
   return (
-    <div className="bg-purple-50 p-6 rounded-lg">
+    <div className={`${bgColor} p-6 rounded-lg`}>
       <h3 className="text-lg font-semibold mb-4">Procedure Steps</h3>
       <ol className="list-decimal list-inside space-y-2">
         {steps.map((step, index) => (

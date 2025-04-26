@@ -13,3 +13,17 @@ export interface PhysicsExperimentData {
 export type PhysicsExperiments = {
   [key: string]: PhysicsExperimentData;
 }
+
+export interface BloodGroup {
+  name: string;
+  hasAntigenA: boolean;
+  hasAntigenB: boolean;
+  isRhPositive: boolean;
+  description: string;
+}
+
+export interface BloodTest {
+  reagent: string;
+  bloodType: string;
+  result: boolean; // true = agglutination (clumping), false = no reaction
+}

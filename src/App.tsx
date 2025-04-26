@@ -9,6 +9,7 @@ import Biology from "./pages/Biology";
 import Chemistry from "./pages/Chemistry";
 import Physics from "./pages/Physics";
 import BiologyExperiment from "./pages/BiologyExperiment";
+import BiologyBloodGroups from "./pages/BiologyBloodGroups";
 import ChemistryExperiment from "./pages/ChemistryExperiment";
 import PhysicsExperiment from "./pages/PhysicsExperiment";
 import Achievements from "./pages/Achievements";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/chemistry" element={<Chemistry />} />
           <Route path="/physics" element={<Physics />} />
           <Route path="/biology/:experimentId" element={<BiologyExperiment />} />
+          <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
           <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
           <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
           <Route path="/achievements" element={<Achievements />} />
