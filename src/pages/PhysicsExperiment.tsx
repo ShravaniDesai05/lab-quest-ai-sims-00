@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import SiteHeader from '@/components/layout/SiteHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import ExperimentHeader from '@/components/physics/ExperimentHeader';
@@ -30,6 +30,12 @@ const PhysicsExperiment = () => {
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Experiment Not Found</h1>
             <p className="mb-6">The requested experiment does not exist.</p>
+            <button 
+              onClick={() => window.location.href = "/physics"} 
+              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+            >
+              Return to Physics Experiments
+            </button>
           </div>
         </div>
       </div>
@@ -53,7 +59,9 @@ const PhysicsExperiment = () => {
               {experimentId === 'pendulum' ? (
                 <PendulumSimulation />
               ) : experimentId === 'refraction' ? (
-                <RefractionSimulation />
+                <div className="w-full">
+                  <RefractionSimulation />
+                </div>
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!
