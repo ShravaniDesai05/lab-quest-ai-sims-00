@@ -5,6 +5,7 @@ import SiteHeader from '@/components/layout/SiteHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import ExperimentHeader from '@/components/physics/ExperimentHeader';
 import PendulumSimulation from '@/components/physics/PendulumSimulation';
+import RefractionSimulation from '@/components/physics/RefractionSimulation';
 import ExperimentSteps from '@/components/physics/ExperimentSteps';
 import { experiments } from '@/data/physicsExperiments';
 import { PhysicsExperimentData } from '@/types/experiments';
@@ -51,6 +52,8 @@ const PhysicsExperiment = () => {
               <h3 className="text-lg font-semibold mb-4">Interactive Physics Simulation</h3>
               {experimentId === 'pendulum' ? (
                 <PendulumSimulation />
+              ) : experimentId === 'refraction' ? (
+                <RefractionSimulation />
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!

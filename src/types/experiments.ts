@@ -27,3 +27,9 @@ export interface BloodTest {
   bloodType: string;
   result: boolean; // true = agglutination (clumping), false = no reaction
 }
+
+export interface RefractionMedium {
+  name: string;
+  refractiveIndex: number;
+  color: string;
+}
