@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SiteHeader from '@/components/layout/SiteHeader';
@@ -30,28 +31,56 @@ const ChemistryExperiment = () => {
       description: 'Identify metal ions based on the characteristic color they produce when heated in a flame.',
       difficulty: 'Beginner',
       duration: '25 minutes',
-      content: 'This experiment shows how different metal salts produce distinct colors when heated in a flame.'
+      content: 'This experiment shows how different metal salts produce distinct colors when heated in a flame.',
+      steps: [
+        'Prepare solutions of different metal salts',
+        'Dip a clean nichrome wire into a solution',
+        'Place the wire in a Bunsen burner flame',
+        'Observe and record the color produced',
+        'Clean the wire and repeat with other solutions'
+      ]
     },
     'baking-soda': {
       title: 'Vinegar and Baking Soda Reaction',
       description: 'Observe an acid-base reaction that produces carbon dioxide gas through the reaction of vinegar with baking soda.',
       difficulty: 'Beginner',
       duration: '20 minutes',
-      content: 'This experiment demonstrates a simple acid-base reaction and gas formation.'
+      content: 'This experiment demonstrates a simple acid-base reaction and gas formation.',
+      steps: [
+        'Measure 50ml of vinegar into a flask',
+        'Add a few drops of food coloring (optional)',
+        'Measure 1 tablespoon of baking soda',
+        'Slowly add the baking soda to the vinegar',
+        'Observe the reaction and bubble formation'
+      ]
     },
     'electrolysis': {
       title: 'Electrolysis of Water',
       description: 'Split water into hydrogen and oxygen gases by passing an electric current through water.',
       difficulty: 'Intermediate',
       duration: '40 minutes',
-      content: 'This experiment shows how electrical energy can be used to drive chemical reactions.'
+      content: 'This experiment shows how electrical energy can be used to drive chemical reactions.',
+      steps: [
+        'Set up the electrolysis apparatus with two electrodes',
+        'Add a small amount of electrolyte to the water',
+        'Connect the electrodes to a power source',
+        'Observe bubble formation at each electrode',
+        'Test the gases produced with a glowing splint'
+      ]
     },
     'catalyst': {
       title: 'Catalyst Reaction',
       description: 'Investigate how catalysts increase the rate of chemical reactions without being consumed in the process.',
       difficulty: 'Advanced',
       duration: '45 minutes',
-      content: 'This experiment demonstrates the effect of catalysts on reaction rates.'
+      content: 'This experiment demonstrates the effect of catalysts on reaction rates.',
+      steps: [
+        'Prepare hydrogen peroxide solution in a beaker',
+        'Measure the rate of oxygen production without catalyst',
+        'Add manganese dioxide as a catalyst',
+        'Measure the rate of oxygen production with catalyst',
+        'Compare the results to understand the catalyst effect'
+      ]
     }
   };
   
@@ -162,14 +191,16 @@ const ChemistryExperiment = () => {
             </CardContent>
           </Card>
 
-          <div className="bg-blue-50 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold mb-4">Procedure Steps</h3>
-            <ol className="list-decimal list-inside space-y-2">
-              {experiment.steps.map((step, index) => (
-                <li key={index} className="text-gray-700">{step}</li>
-              ))}
-            </ol>
-          </div>
+          {experiment.steps && (
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-4">Procedure Steps</h3>
+              <ol className="list-decimal list-inside space-y-2">
+                {experiment.steps.map((step, index) => (
+                  <li key={index} className="text-gray-700">{step}</li>
+                ))}
+              </ol>
+            </div>
+          )}
         </div>
       </main>
       
