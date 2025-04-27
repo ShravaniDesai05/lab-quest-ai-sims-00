@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import ExperimentHeader from '@/components/physics/ExperimentHeader';
 import PendulumSimulation from '@/components/physics/PendulumSimulation';
 import RefractionSimulation from '@/components/physics/RefractionSimulation';
+import OhmsLawSimulation from '@/components/physics/OhmsLawSimulation';
 import ExperimentSteps from '@/components/physics/ExperimentSteps';
 import { experiments } from '@/data/physicsExperiments';
 import { PhysicsExperimentData } from '@/types/experiments';
@@ -62,6 +63,8 @@ const PhysicsExperiment = () => {
                 <div className="w-full">
                   <RefractionSimulation />
                 </div>
+              ) : experimentId === 'ohms-law' ? (
+                <OhmsLawSimulation />
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!

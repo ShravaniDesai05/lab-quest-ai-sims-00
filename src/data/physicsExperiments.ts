@@ -1,3 +1,4 @@
+
 import { PhysicsExperiments } from '@/types/experiments';
 
 export const experiments: PhysicsExperiments = {
@@ -48,7 +49,7 @@ export const experiments: PhysicsExperiments = {
     description: 'Explore the relationship between voltage, current, and resistance in electrical circuits.',
     difficulty: 'Intermediate',
     duration: '35 minutes',
-    content: 'This experiment shows how to measure electrical quantities and verify Ohm\'s Law.',
+    content: 'This experiment shows how voltage, current, and resistance are related through Ohm\'s Law (V = IR). By adjusting the voltage of a battery or the resistance in a circuit, you can observe how the current changes according to this fundamental electrical principle.',
     steps: [
       'Set up a simple circuit with battery, resistor, and ammeter',
       'Measure current at different voltages',
