@@ -99,3 +99,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes slide-right {
+  from {
+    transform: translateX(0) translateY(-50%);
+  }
+  to {
+    transform: translateX(50px) translateY(-50%);
+  }
+}
