@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Flame } from "lucide-react";
+import { Flame, TestTube } from "lucide-react";
 import { MetalIon } from '@/types/experiments';
+import { useToast } from "@/hooks/use-toast";
 
 interface FlameTestSimulationProps {
   metalIons: MetalIon[];
@@ -18,12 +19,15 @@ const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) 
   const [quizIon, setQuizIon] = useState<MetalIon | null>(null);
   const [showReference, setShowReference] = useState(false);
   const [userGuess, setUserGuess] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const startQuiz = () => {
     setIsQuizMode(true);
     setShowingFlame(false);
-    setQuizIon(metalIons[Math.floor(Math.random() * metalIons.length)]);
+    const randomIon = metalIons[Math.floor(Math.random() * metalIons.length)];
+    setQuizIon(randomIon);
     setUserGuess(null);
+    setShowingFlame(true);
   };
 
   const handleIonSelect = (ionName: string) => {
@@ -31,13 +35,31 @@ const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) 
     if (ion) {
       setSelectedIon(ion);
       setShowingFlame(true);
+      toast({
+        title: "Flame Test",
+        description: `Observing ${ion.name} in the flame.`,
+      });
     }
   };
 
   const handleGuess = (ionName: string) => {
     if (!quizIon) return;
     setUserGuess(ionName);
-    setShowingFlame(true);
+    
+    // Check if the guess is correct
+    if (ionName === quizIon.name) {
+      toast({
+        title: "Correct!",
+        description: `You correctly identified ${quizIon.name}!`,
+        variant: "default",
+      });
+    } else {
+      toast({
+        title: "Incorrect",
+        description: `The flame color was actually from ${quizIon.name}.`,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -99,7 +121,7 @@ const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) 
               value={isQuizMode ? userGuess ?? undefined : selectedIon?.name}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Choose a metal ion" />
+                <SelectValue placeholder={isQuizMode ? "What metal ion is this?" : "Choose a metal ion"} />
               </SelectTrigger>
               <SelectContent>
                 {metalIons.map((ion) => (
@@ -130,18 +152,16 @@ const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) 
           )}
         </div>
 
-        <div className="relative min-h-[300px] bg-gray-900 rounded-lg overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* Bunsen burner base */}
-            <div className="w-20 h-40 bg-gray-700 rounded-t-lg relative">
-              {/* Flame */}
-              {showingFlame && (
-                <div className="absolute -top-32 left-1/2 transform -translate-x-1/2">
-                  <div className={`
-                    w-16 h-32 rounded-t-full
-                    animate-flame
-                    transition-colors duration-500
-                  `}
+        <div className="relative min-h-[300px] bg-gray-900 rounded-lg overflow-hidden flex items-center justify-center">
+          <div className="w-20 h-40 bg-gray-700 rounded-t-lg relative">
+            {/* Bunsen burner neck */}
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-4 h-8 bg-gray-600 rounded" />
+            
+            {/* Flame */}
+            {showingFlame && (
+              <div className="absolute -top-32 left-1/2 transform -translate-x-1/2">
+                <div 
+                  className="w-16 h-32 rounded-t-full animate-pulse"
                   style={{
                     backgroundColor: isQuizMode && quizIon 
                       ? quizIon.flameColor 
@@ -151,14 +171,18 @@ const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) 
                         ? quizIon.flameColor 
                         : selectedIon?.flameColor ?? '#FF7F00'
                     }`
-                  }}>
-                    <div className="absolute inset-0 animate-pulse opacity-75" />
-                  </div>
-                </div>
-              )}
-              {/* Burner neck */}
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-4 h-8 bg-gray-600 rounded" />
-            </div>
+                  }}
+                />
+              </div>
+            )}
+            
+            {/* Test tube element for visual interest */}
+            {!isQuizMode && !showingFlame && (
+              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 opacity-50">
+                <TestTube className="w-10 h-10 text-gray-400" />
+                <div className="mt-2 text-center text-xs text-gray-400">Select an ion</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -170,6 +194,13 @@ const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) 
             <p>{selectedIon.description}</p>
           </CardContent>
         </Card>
+      )}
+
+      {isQuizMode && !userGuess && (
+        <div className="text-center p-4">
+          <p className="text-sm text-gray-600 mb-2">Observe the flame color and make your guess!</p>
+          <p className="text-xs text-gray-500">Different metal ions produce distinctive colors when heated in a flame</p>
+        </div>
       )}
     </div>
   );
