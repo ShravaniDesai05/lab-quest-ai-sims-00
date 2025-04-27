@@ -1,58 +1,17 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Flame } from "lucide-react";
+import { MetalIon } from '@/types/experiments';
 
-interface MetalIon {
-  symbol: string;
-  name: string;
-  color: string;
-  flameColor: string;
-  description: string;
+interface FlameTestSimulationProps {
+  metalIons: MetalIon[];
 }
 
-const metalIons: MetalIon[] = [
-  {
-    symbol: "Na⁺",
-    name: "Sodium",
-    color: "#FFE5B4",
-    flameColor: "#FFD700",
-    description: "Produces an intense yellow flame"
-  },
-  {
-    symbol: "K⁺",
-    name: "Potassium",
-    color: "#E5D4FF",
-    flameColor: "#9D4EDD",
-    description: "Creates a distinctive lilac or light purple flame"
-  },
-  {
-    symbol: "Ca²⁺",
-    name: "Calcium",
-    color: "#FFD6CC",
-    flameColor: "#FF4500",
-    description: "Shows an orange-red colored flame"
-  },
-  {
-    symbol: "Cu²⁺",
-    name: "Copper",
-    color: "#90EE90",
-    flameColor: "#00FF7F",
-    description: "Exhibits a bright green-blue flame"
-  },
-  {
-    symbol: "Li⁺",
-    name: "Lithium",
-    color: "#FFB6C1",
-    flameColor: "#DC143C",
-    description: "Displays a crimson red flame"
-  }
-];
-
-const FlameTestSimulation: React.FC = () => {
+const FlameTestSimulation: React.FC<FlameTestSimulationProps> = ({ metalIons }) => {
   const [selectedIon, setSelectedIon] = useState<MetalIon | null>(null);
   const [isQuizMode, setIsQuizMode] = useState(false);
   const [showingFlame, setShowingFlame] = useState(false);

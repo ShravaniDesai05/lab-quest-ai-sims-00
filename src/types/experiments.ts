@@ -1,3 +1,4 @@
+
 export type ExperimentStep = string;
 
 export interface PhysicsExperimentData {
@@ -28,6 +29,7 @@ export interface ChemistryExperimentData {
   duration: string;
   content: string;
   steps: ExperimentStep[];
+  metalIons?: MetalIon[];
 }
 
 export type ChemistryExperiments = {

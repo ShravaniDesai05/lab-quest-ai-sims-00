@@ -1,8 +1,9 @@
 
 import React, { useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import SiteHeader from '@/components/layout/SiteHeader';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import ExperimentHeader from '@/components/physics/ExperimentHeader';
 import FlameTestSimulation from '@/components/chemistry/FlameTestSimulation';
 import ExperimentSteps from '@/components/physics/ExperimentSteps';
@@ -28,12 +29,13 @@ const ChemistryExperiment = () => {
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Experiment Not Found</h1>
             <p className="mb-6">The requested experiment does not exist.</p>
-            <button 
+            <Button 
               onClick={() => window.location.href = "/chemistry"} 
               className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+              asChild
             >
-              Return to Chemistry Experiments
-            </button>
+              <Link to="/chemistry">Return to Chemistry Experiments</Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -55,7 +57,7 @@ const ChemistryExperiment = () => {
             <CardContent className="pt-6">
               <h3 className="text-lg font-semibold mb-4">Interactive Chemistry Simulation</h3>
               {experimentId === 'flame-test' ? (
-                <FlameTestSimulation />
+                <FlameTestSimulation metalIons={experiment.metalIons || []} />
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!
