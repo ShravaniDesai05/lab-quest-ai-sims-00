@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -25,6 +24,15 @@ const Biology = () => {
       duration: '25 minutes',
       image: '/placeholder.svg',
       path: '/biology/blood-groups'
+    },
+    {
+      id: 'catalase',
+      title: 'Effect of Temperature on Catalase Activity',
+      description: 'Investigate how temperature affects enzyme activity by observing catalase breaking down hydrogen peroxide into water and oxygen.',
+      difficulty: 'Intermediate',
+      duration: '45 minutes',
+      image: '/placeholder.svg',
+      path: '/biology/catalase'
     },
     {
       id: 'onion-cells',
