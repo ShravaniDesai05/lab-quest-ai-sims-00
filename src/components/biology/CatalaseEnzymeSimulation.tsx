@@ -5,6 +5,25 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { Award, Thermometer, FlaskConical, Circle, TestTube, ChartLine } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { 
+  ChartContainer, 
+  ChartTooltipContent, 
+  ChartTooltip, 
+  ChartLegendContent, 
+  ChartLegend
+} from "@/components/ui/chart";
+import { 
+  Line, 
+  LineChart, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer,
+  ReferenceLine
+} from 'recharts';
 
 interface Achievement {
   id: string;
@@ -172,6 +191,18 @@ export const CatalaseEnzymeSimulation = () => {
     });
   };
   
+  // Generate data for the complete enzyme activity curve
+  const generateEnzymeActivityCurve = () => {
+    const data = [];
+    for (let temp = 0; temp <= 80; temp += 5) {
+      data.push({
+        temp,
+        rate: calculateReactionRate(temp)
+      });
+    }
+    return data;
+  };
+
   // Animation loop for bubble simulation
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -408,6 +439,9 @@ export const CatalaseEnzymeSimulation = () => {
     };
   }, []);
   
+  // Generate curve data
+  const curveData = generateEnzymeActivityCurve();
+  
   return (
     <div className="w-full bg-white p-4 rounded-lg shadow">
       <div className="flex flex-col md:flex-row justify-between items-start gap-4">
@@ -498,64 +532,65 @@ export const CatalaseEnzymeSimulation = () => {
           )}
           
           {showGraph && (
-            <div className="bg-white p-4 rounded-lg border">
-              <h3 className="font-semibold mb-2 flex items-center">
-                <ChartLine className="h-5 w-5 mr-2 text-blue-500" />
-                Temperature vs. Reaction Rate
-              </h3>
-              <div className="h-60 relative border rounded">
-                {/* X and Y axes */}
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-400"></div>
-                <div className="absolute bottom-0 left-0 w-0.5 h-full bg-gray-400"></div>
-                
-                {/* Generate bell curve */}
-                <svg className="w-full h-full" style={{overflow: 'visible'}}>
-                  <path 
-                    d={`M 0,${240} ${Array.from({length: 80}).map((_, i) => {
-                      const temp = i;
-                      const rate = calculateReactionRate(temp);
-                      const x = (temp / 80) * 100 + '%';
-                      const y = 240 - rate * 240;
-                      return `L ${x},${y}`;
-                    }).join(' ')}`}
-                    fill="none"
-                    stroke="#3B82F6"
-                    strokeWidth="2"
-                  />
-                </svg>
-                
-                {/* Data points collected during experiment */}
-                {dataPoints.map((point, i) => (
-                  <div 
-                    key={i}
-                    className="absolute w-2 h-2 bg-red-500 rounded-full transform -translate-x-1 -translate-y-1"
-                    style={{ 
-                      left: `${(point.temp / 80) * 100}%`, 
-                      bottom: `${point.rate * 100}%` 
-                    }}
-                  />
-                ))}
-                
-                {/* Axis labels */}
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs">
-                  Temperature (°C)
+            <Card className="bg-white p-2 rounded-lg">
+              <CardContent>
+                <h3 className="font-semibold mb-2 flex items-center">
+                  <ChartLine className="h-5 w-5 mr-2 text-blue-500" />
+                  Temperature vs. Reaction Rate
+                </h3>
+                <div className="h-64 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={curveData}
+                      margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis 
+                        dataKey="temp" 
+                        label={{ value: 'Temperature (°C)', position: 'bottom', offset: 0 }}
+                        domain={[0, 80]}
+                      />
+                      <YAxis
+                        label={{ value: 'Reaction Rate', angle: -90, position: 'insideLeft' }}
+                        domain={[0, 1]}
+                      />
+                      <Tooltip 
+                        formatter={(value: number) => [value.toFixed(2), 'Reaction Rate']}
+                        labelFormatter={(label) => `Temperature: ${label}°C`}
+                      />
+                      <Legend />
+                      
+                      {/* Optimal temperature reference range */}
+                      <ReferenceLine x={37} stroke="green" strokeDasharray="3 3" label="Optimal" />
+                      
+                      <Line
+                        type="monotone"
+                        dataKey="rate"
+                        name="Enzyme Activity"
+                        stroke="#3b82f6"
+                        strokeWidth={2}
+                        dot={false}
+                        activeDot={{ r: 5 }}
+                      />
+                      
+                      {/* Highlight data points collected during game */}
+                      {gameActive && dataPoints.map((point, index) => (
+                        <Line
+                          key={`data-${index}`}
+                          data={[point]}
+                          type="monotone"
+                          dataKey="rate"
+                          name="Your Data"
+                          stroke="#ef4444"
+                          strokeWidth={0}
+                          dot={{ stroke: '#ef4444', strokeWidth: 2, r: 4, fill: '#ef4444' }}
+                        />
+                      ))}
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
-                <div className="absolute -left-1 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs">
-                  Reaction Rate
-                </div>
-                
-                {/* Temperature labels */}
-                {[0, 20, 40, 60, 80].map((temp) => (
-                  <div 
-                    key={temp} 
-                    className="absolute bottom-0 text-xs transform -translate-x-1/2 -translate-y-4"
-                    style={{ left: `${(temp / 80) * 100}%` }}
-                  >
-                    {temp}
-                  </div>
-                ))}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           )}
         </div>
         
@@ -571,7 +606,7 @@ export const CatalaseEnzymeSimulation = () => {
                 <div 
                   key={achievement.id}
                   className={`flex items-center p-2 rounded-md ${
-                    achievement.unlocked ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50'
+                    achievement.unlocked ? 'bg-amber-50 border border-amber-200 animate-achievement-unlock' : 'bg-gray-50'
                   }`}
                 >
                   <div className={`p-1 rounded-full mr-2 ${
