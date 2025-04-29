@@ -150,6 +150,27 @@
   }
 }
 
+/* New animations for intro screen */
+@keyframes float-particle {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(var(--x, 100px), var(--y, -100px));
+    opacity: 0;
+  }
+}
+
+.particle {
+  --x: 0px;
+  --y: 0px;
+  animation: float-particle 6s infinite;
+}
+
 .animate-bubble-rise {
   animation: bubble-rise 3s ease-out forwards;
 }
@@ -161,3 +182,4 @@
 .animate-achievement-unlock {
   animation: achievement-unlock 0.5s ease-out forwards;
 }
+
