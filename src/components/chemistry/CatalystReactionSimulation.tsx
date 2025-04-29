@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChartContainer, ChartTooltipContent, ChartTooltip } from "@/components/ui/chart";
-import { LineSeries, Line, Tooltip, CartesianGrid, XAxis, YAxis, Legend, ResponsiveContainer } from "recharts";
+import { Line, Tooltip, CartesianGrid, XAxis, YAxis, Legend, ResponsiveContainer } from "recharts";
 import { Badge } from "@/components/ui/badge";
 import { Beaker, FlaskConical, TestTube, Atom } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -469,8 +469,7 @@ const CatalystReactionSimulation: React.FC<CatalystReactionSimulationProps> = ({
                   >
                     <ResponsiveContainer width="100%" height="100%">
                       <Line 
-                        data={chartData} 
-                        margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+                        data={chartData}
                       >
                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                         <XAxis 
@@ -486,13 +485,15 @@ const CatalystReactionSimulation: React.FC<CatalystReactionSimulationProps> = ({
                           } 
                         />
                         <Legend />
-                        <LineSeries 
+                        <Line 
+                          type="monotone"
                           name="withoutCatalyst" 
                           dataKey="withoutCatalyst" 
                           stroke="#33C3F0" 
                           dot={false} 
                         />
-                        <LineSeries 
+                        <Line 
+                          type="monotone"
                           name="withCatalyst" 
                           dataKey="withCatalyst" 
                           stroke="#9b87f5" 
@@ -508,7 +509,7 @@ const CatalystReactionSimulation: React.FC<CatalystReactionSimulationProps> = ({
         </div>
       </div>
       
-      <style jsx global>{`
+      <style>{`
         @keyframes bubbleRise {
           0% {
             transform: translateY(0) scale(1);
