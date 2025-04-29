@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -44,13 +45,13 @@ const Biology = () => {
       path: '/biology/onion-cells'
     },
     {
-      id: 'enzymes',
-      title: 'Enzyme Activity & Temperature',
-      description: 'Investigate how temperature affects enzyme activity by observing catalase breaking down hydrogen peroxide.',
+      id: 'pollen-germination',
+      title: 'Pollen Germination on Stigma',
+      description: 'Visualize and interact with the process of pollen grain germination on a flower stigma using microscope and SEM views.',
       difficulty: 'Intermediate',
-      duration: '40 minutes',
+      duration: '30 minutes',
       image: '/placeholder.svg',
-      path: '/biology/enzymes'
+      path: '/biology/pollen-germination'
     },
     {
       id: 'photosynthesis',
