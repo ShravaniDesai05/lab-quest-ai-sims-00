@@ -69,5 +69,46 @@ export const experiments: ChemistryExperiments = {
       'Clean the loop thoroughly before testing the next sample'
     ],
     metalIons: metalIons
+  },
+  'catalyst': {
+    title: 'Catalyst Reaction Demonstration',
+    description: 'Investigate how catalysts increase the rate of chemical reactions without being consumed in the process.',
+    difficulty: 'Intermediate',
+    duration: '25 minutes',
+    content: 'Catalysts are substances that speed up chemical reactions without being consumed in the process. They work by providing an alternative pathway for the reaction that has a lower activation energy, enabling more reactant molecules to transform into products in a shorter time. This simulation demonstrates the effect of different catalysts on the decomposition of hydrogen peroxide (H₂O₂) into water (H₂O) and oxygen (O₂), with emphasis on how catalysts remain unchanged after the reaction is complete.',
+    steps: [
+      'Set up two beakers with equal amounts of hydrogen peroxide solution',
+      'Add a catalyst to one beaker while leaving the other as a control',
+      'Observe and compare the reaction rates in both beakers',
+      'Time the reactions to quantify the catalytic effect',
+      'Try different catalysts and compare their effectiveness',
+      'Verify that the catalyst remains unchanged after the reaction'
+    ],
+    catalystOptions: [
+      {
+        name: "Manganese Dioxide",
+        formula: "MnO₂",
+        effectiveness: 0.9,
+        color: "#3D3C3A"
+      },
+      {
+        name: "Potassium Iodide",
+        formula: "KI",
+        effectiveness: 0.7,
+        color: "#FFFFFF"
+      },
+      {
+        name: "Iron(III) Chloride",
+        formula: "FeCl₃",
+        effectiveness: 0.5,
+        color: "#9B5A47"
+      },
+      {
+        name: "Catalase Enzyme",
+        formula: "Enzyme",
+        effectiveness: 1.0,
+        color: "#AAD4B5"
+      }
+    ]
   }
 };

@@ -22,6 +22,13 @@ export interface MetalIon {
   description: string;
 }
 
+export interface CatalystOption {
+  name: string;
+  formula: string;
+  effectiveness: number;
+  color: string;
+}
+
 export interface ChemistryExperimentData {
   title: string;
   description: string;
@@ -30,6 +37,7 @@ export interface ChemistryExperimentData {
   content: string;
   steps: ExperimentStep[];
   metalIons?: MetalIon[];
+  catalystOptions?: CatalystOption[];
 }
 
 export type ChemistryExperiments = {
