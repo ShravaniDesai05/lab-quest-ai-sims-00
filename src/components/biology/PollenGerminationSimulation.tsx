@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -10,8 +9,8 @@ import {
   Pause,
   ZoomIn,
   ZoomOut,
-  RotateCounterclockwise,
-  RotateClockwise,
+  'rotate-ccw' as RotateCcw,
+  'rotate-cw' as RotateCw,
   Microscope
 } from 'lucide-react';
 
@@ -339,10 +338,10 @@ const PollenGerminationSimulation = () => {
         {viewMode === 'sem' && (
           <div className="absolute top-4 left-4 flex gap-2 bg-white/80 p-1 rounded-md shadow-sm">
             <Button size="sm" onClick={() => handleRotate('counterclockwise')} variant="ghost">
-              <RotateCounterclockwise className="h-4 w-4" />
+              <RotateCcw className="h-4 w-4" />
             </Button>
             <Button size="sm" onClick={() => handleRotate('clockwise')} variant="ghost">
-              <RotateClockwise className="h-4 w-4" />
+              <RotateCw className="h-4 w-4" />
             </Button>
           </div>
         )}
