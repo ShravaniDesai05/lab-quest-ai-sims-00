@@ -1,4 +1,3 @@
-
 import { PhysicsExperiments } from '@/types/experiments';
 
 export const experiments: PhysicsExperiments = {
@@ -70,6 +69,20 @@ export const experiments: PhysicsExperiments = {
       'Observe interference patterns',
       'Measure wavelength and frequency',
       'Identify nodes and antinodes'
+    ]
+  },
+  'newtons-laws': {
+    title: 'Newton\'s Three Laws of Motion',
+    description: 'Explore and demonstrate Newton\'s three fundamental laws that describe the relationship between an object and the forces acting upon it.',
+    difficulty: 'Intermediate',
+    duration: '45 minutes',
+    content: 'This experiment allows you to interact with simulations of Newton\'s three laws of motion: the Law of Inertia, F=ma, and Action-Reaction. Through interactive demonstrations, you\'ll observe how objects behave under different forces, masses, and environmental conditions.',
+    steps: [
+      'Explore the Law of Inertia by sliding objects across different surfaces',
+      'Test the Second Law (F=ma) by applying different forces to objects with varying masses',
+      'Observe the Third Law by experimenting with action-reaction pairs',
+      'Complete challenges to test your understanding of each law',
+      'Record observations and conclusions in the virtual lab notebook'
     ]
   }
 };

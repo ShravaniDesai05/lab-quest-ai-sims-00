@@ -5,50 +5,17 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SiteHeader from '@/components/layout/SiteHeader';
 import { Bookmark, Clock } from 'lucide-react';
+import { experiments } from '@/data/physicsExperiments';
 
 const Physics = () => {
-  const experiments = [
-    {
-      id: 'sound-speed',
-      title: 'Speed of Sound via Echo',
-      description: 'Measure the speed of sound by calculating the time it takes for an echo to return from a distant object.',
-      difficulty: 'Intermediate',
-      duration: '30 minutes',
-      image: '/placeholder.svg'
-    },
-    {
-      id: 'pendulum',
-      title: 'Pendulum for Newton\'s Laws',
-      description: 'Investigate the factors affecting pendulum motion and observe Newton\'s laws of motion in action.',
-      difficulty: 'Beginner',
-      duration: '25 minutes',
-      image: '/placeholder.svg'
-    },
-    {
-      id: 'refraction',
-      title: 'Refraction of Light',
-      description: 'Observe how light changes direction when passing from one medium to another with different refractive indices.',
-      difficulty: 'Beginner',
-      duration: '20 minutes',
-      image: '/placeholder.svg'
-    },
-    {
-      id: 'ohms-law',
-      title: 'Ohm\'s Law',
-      description: 'Explore the relationship between voltage, current, and resistance in electrical circuits.',
-      difficulty: 'Intermediate',
-      duration: '35 minutes',
-      image: '/placeholder.svg'
-    },
-    {
-      id: 'wave-interference',
-      title: 'Water Wave Interference',
-      description: 'Visualize constructive and destructive interference patterns created by overlapping water waves.',
-      difficulty: 'Advanced',
-      duration: '40 minutes',
-      image: '/placeholder.svg'
-    }
-  ];
+  const experimentsList = Object.entries(experiments).map(([id, data]) => ({
+    id,
+    title: data.title,
+    description: data.description,
+    difficulty: data.difficulty,
+    duration: data.duration,
+    image: '/placeholder.svg'
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-purple-50">
@@ -61,7 +28,7 @@ const Physics = () => {
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {experiments.map((experiment) => (
+          {experimentsList.map((experiment) => (
             <Card key={experiment.id} className="overflow-hidden hover:shadow-lg transition-shadow">
               <div className="h-48 bg-gray-100 flex items-center justify-center">
                 <img 

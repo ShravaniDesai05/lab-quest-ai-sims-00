@@ -71,3 +71,22 @@ export interface RefractionMedium {
   refractiveIndex: number;
   color: string;
 }
+
+export interface SurfaceType {
+  name: string;
+  frictionCoefficient: number;
+  color: string;
+}
+
+export interface ForceDirection {
+  x: number;
+  y: number;
+}
+
+export interface PhysicalObject {
+  name: string;
+  mass: number;
+  initialVelocity: number;
+  color: string;
+}
+

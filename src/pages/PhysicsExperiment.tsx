@@ -7,6 +7,7 @@ import ExperimentHeader from '@/components/physics/ExperimentHeader';
 import PendulumSimulation from '@/components/physics/PendulumSimulation';
 import RefractionSimulation from '@/components/physics/RefractionSimulation';
 import OhmsLawSimulation from '@/components/physics/OhmsLawSimulation';
+import NewtonsLawsSimulation from '@/components/physics/NewtonsLawsSimulation';
 import ExperimentSteps from '@/components/physics/ExperimentSteps';
 import { experiments } from '@/data/physicsExperiments';
 import { PhysicsExperimentData } from '@/types/experiments';
@@ -65,6 +66,8 @@ const PhysicsExperiment = () => {
                 </div>
               ) : experimentId === 'ohms-law' ? (
                 <OhmsLawSimulation />
+              ) : experimentId === 'newtons-laws' ? (
+                <NewtonsLawsSimulation />
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!

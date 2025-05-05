@@ -99,3 +99,24 @@
 .animate-bubble {
   animation: bubble 3s ease-in-out forwards;
 }
+
+/* Animation for Newton's Laws simulation */
+@keyframes slide-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes pulse-badge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.pulse-badge {
+  animation: pulse-badge 1s ease-in-out infinite;
+}
+
