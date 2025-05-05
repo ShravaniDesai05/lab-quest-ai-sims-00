@@ -29,6 +29,13 @@ export interface CatalystOption {
   color: string;
 }
 
+export interface Electrolyte {
+  name: string;
+  formula: string;
+  efficiency: number;
+  color: string;
+}
+
 export interface ChemistryExperimentData {
   title: string;
   description: string;
@@ -38,6 +45,7 @@ export interface ChemistryExperimentData {
   steps: ExperimentStep[];
   metalIons?: MetalIon[];
   catalystOptions?: CatalystOption[];
+  electrolytes?: Electrolyte[];
 }
 
 export type ChemistryExperiments = {

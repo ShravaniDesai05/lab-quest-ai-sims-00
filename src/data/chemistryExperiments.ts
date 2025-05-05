@@ -110,5 +110,40 @@ export const experiments: ChemistryExperiments = {
         color: "#AAD4B5"
       }
     ]
+  },
+  'electrolysis': {
+    title: 'Electrolysis of Water',
+    description: 'Split water into hydrogen and oxygen gases by passing an electric current through water.',
+    difficulty: 'Intermediate',
+    duration: '40 minutes',
+    content: 'Electrolysis is an electrochemical process where an electric current is passed through a liquid or solution containing ions, causing chemical changes at the electrodes. In water electrolysis, an electric current splits water (H₂O) into hydrogen gas (H₂) and oxygen gas (O₂). This experiment illustrates both the principles of electrochemistry and the chemical properties of water. The hydrogen ions (H⁺) are attracted to the negatively charged cathode, where they gain electrons and form hydrogen gas, while hydroxide ions (OH⁻) move to the positively charged anode, where they lose electrons and form oxygen gas and water.',
+    steps: [
+      'Set up the electrolysis apparatus with distilled water',
+      'Add a small amount of electrolyte (acid or salt) to increase conductivity',
+      'Connect the electrodes to a direct current power source',
+      'Observe bubble formation at both electrodes',
+      'Note that hydrogen gas volume is twice that of oxygen gas',
+      'Identify the gases collected by their properties'
+    ],
+    electrolytes: [
+      {
+        name: "Sulfuric Acid",
+        formula: "H₂SO₄",
+        efficiency: 1,
+        color: "transparent"
+      },
+      {
+        name: "Sodium Chloride",
+        formula: "NaCl",
+        efficiency: 0.7,
+        color: "rgba(173, 216, 230, 0.1)"
+      },
+      {
+        name: "Potassium Hydroxide",
+        formula: "KOH",
+        efficiency: 0.9,
+        color: "rgba(173, 216, 230, 0.1)"
+      }
+    ]
   }
 };

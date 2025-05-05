@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Bookmark, Clock, FlaskConical, Atom } from 'lucide-react';
+import { Bookmark, Clock, FlaskConical, Atom, Battery, Zap } from 'lucide-react';
 
 const Chemistry = () => {
   const experiments = [
@@ -17,6 +17,16 @@ const Chemistry = () => {
       image: '/placeholder.svg',
       featured: true,
       icon: <Atom className="w-8 h-8 text-purple-500" />
+    },
+    {
+      id: 'electrolysis',
+      title: 'Electrolysis of Water',
+      description: 'Split water into hydrogen and oxygen gases by passing an electric current through water.',
+      difficulty: 'Intermediate',
+      duration: '40 minutes',
+      image: '/placeholder.svg',
+      featured: true,
+      icon: <Battery className="w-8 h-8 text-blue-500" />
     },
     {
       id: 'flame-test',
@@ -41,14 +51,6 @@ const Chemistry = () => {
       description: 'Observe an acid-base reaction that produces carbon dioxide gas through the reaction of vinegar with baking soda.',
       difficulty: 'Beginner',
       duration: '20 minutes',
-      image: '/placeholder.svg'
-    },
-    {
-      id: 'electrolysis',
-      title: 'Electrolysis of Water',
-      description: 'Split water into hydrogen and oxygen gases by passing an electric current through water.',
-      difficulty: 'Intermediate',
-      duration: '40 minutes',
       image: '/placeholder.svg'
     }
   ];

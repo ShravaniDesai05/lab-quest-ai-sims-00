@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import ExperimentHeader from '@/components/physics/ExperimentHeader';
 import FlameTestSimulation from '@/components/chemistry/FlameTestSimulation';
 import CatalystReactionSimulation from '@/components/chemistry/CatalystReactionSimulation';
+import ElectrolysisSimulation from '@/components/chemistry/ElectrolysisSimulation';
 import ExperimentSteps from '@/components/physics/ExperimentSteps';
 import { experiments } from '@/data/chemistryExperiments';
 
@@ -61,6 +62,8 @@ const ChemistryExperiment = () => {
                 <FlameTestSimulation metalIons={experiment.metalIons || []} />
               ) : experimentId === 'catalyst' ? (
                 <CatalystReactionSimulation catalystOptions={experiment.catalystOptions || []} />
+              ) : experimentId === 'electrolysis' ? (
+                <ElectrolysisSimulation electrolytes={experiment.electrolytes || []} />
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!
