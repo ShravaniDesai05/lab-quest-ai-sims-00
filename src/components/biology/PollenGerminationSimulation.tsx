@@ -9,8 +9,8 @@ import {
   Pause,
   ZoomIn,
   ZoomOut,
-  'rotate-ccw' as RotateCcw,
-  'rotate-cw' as RotateCw,
+  RotateCcw,
+  RotateCw,
   Microscope
 } from 'lucide-react';
 
