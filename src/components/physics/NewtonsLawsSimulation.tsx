@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
@@ -483,7 +482,7 @@ const NewtonsLawsSimulation: React.FC = () => {
       toast({
         title: "All Badges Earned!",
         description: "Physics Master: You've mastered all of Newton's Laws of Motion!",
-        variant: "success",
+        variant: "default", // Change from "success" to "default"
       });
     }
   }, [allBadgesEarned, toast]);
