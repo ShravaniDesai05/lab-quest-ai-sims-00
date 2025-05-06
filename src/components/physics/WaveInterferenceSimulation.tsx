@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { WaveSource, WaveMedium, Obstacle, WaveSimulationSettings } from "@/types/experiments";
-import { Circle, Ruler, Graph, Waves } from "lucide-react";
+import { Circle, Ruler, BarChart, Waves } from "lucide-react";
 
 const WaveInterferenceSimulation: React.FC = () => {
   const { toast } = useToast();
