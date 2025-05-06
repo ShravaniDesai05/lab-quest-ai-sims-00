@@ -382,16 +382,18 @@ const LabBench: React.FC<LabBenchProps> = ({ labState, onAddChemical }) => {
 
   return (
     <div className="h-full relative flex items-center justify-center bg-gray-50 rounded-lg shadow-inner overflow-hidden">
-      <style jsx>{`
-        @keyframes bubble-rise {
-          0% { transform: translateY(0) scale(1); opacity: 0.7; }
-          100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
-        }
-        @keyframes fly-away {
-          0% { transform: translate(0, 0) rotate(0deg); opacity: 0.7; }
-          100% { transform: translate(var(--tx, 50px), var(--ty, 50px)) rotate(var(--tr, 180deg)); opacity: 0; }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes bubble-rise {
+            0% { transform: translateY(0) scale(1); opacity: 0.7; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+          }
+          @keyframes fly-away {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.7; }
+            100% { transform: translate(var(--tx, 50px), var(--ty, 50px)) rotate(var(--tr, 180deg)); opacity: 0; }
+          }
+        `}
+      </style>
       <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-gray-200 to-transparent" />
       <div className="absolute top-6 right-6">
         {/* Temperature display */}
