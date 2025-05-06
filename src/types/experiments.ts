@@ -72,11 +72,13 @@ export interface ReactionResult {
   productFormula?: string;
   colorChange?: string;
   precipitate?: boolean;
+  precipitateColor?: string;
   gasProduction?: boolean;
   gasName?: string;
   temperatureChange?: number;
   phChange?: number;
   flameColor?: string;
+  equation?: string;
 }
 
 export interface Glassware {
@@ -105,6 +107,11 @@ export interface LabSimulationState {
   ph: number;
   observations: string[];
   procedureStep: number;
+  reactionLog?: {
+    time: string;
+    equation: string;
+    observation: string;
+  }[];
 }
 
 // Blood group types

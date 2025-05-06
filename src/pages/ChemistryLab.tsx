@@ -1,9 +1,9 @@
 
 import React from 'react';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Card, CardContent } from '@/components/ui/card';
-import ChemistryLabSimulation from '@/components/chemistry/ChemistryLabSimulation';
-import { FlaskConical, Beaker, TestTube, BookOpen } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import EnhancedChemistrySimulation from '@/components/chemistry/EnhancedChemistrySimulation';
+import { FlaskConical, Beaker, Shield, Info } from 'lucide-react';
 
 const ChemistryLab = () => {
   return (
@@ -11,10 +11,10 @@ const ChemistryLab = () => {
       <SiteHeader />
       
       <main className="flex-1 container py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Virtual Chemistry Laboratory</h1>
+        <div className="mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Interactive Chemistry Laboratory</h1>
           <p className="text-gray-600 mt-2">
-            Experiment with chemicals and reactions in a safe, virtual environment
+            Mix chemicals, observe reactions, and learn chemistry through hands-on experimentation
           </p>
         </div>
         
@@ -25,89 +25,26 @@ const ChemistryLab = () => {
             </div>
             <div>
               <h2 className="text-xl font-semibold">Interactive Chemistry Workbench</h2>
-              <p className="text-gray-600">Drag chemicals, observe reactions, and record your findings</p>
+              <p className="text-gray-600">Drag chemicals, observe realistic reactions, and record your findings</p>
             </div>
           </div>
           
           <Card>
-            <CardContent className="p-4 md:p-6">
-              <ChemistryLabSimulation />
-            </CardContent>
+            <EnhancedChemistrySimulation />
           </Card>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center mb-4">
-                <Beaker className="h-5 w-5 mr-2 text-blue-500" />
-                <h3 className="text-lg font-semibold">Core Experiments</h3>
-              </div>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center">
-                  <span className="bg-blue-100 rounded-full p-1 mr-2">•</span>
-                  <span>Flame Tests - Identify metals by color</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="bg-blue-100 rounded-full p-1 mr-2">•</span>
-                  <span>Acid-Base Titrations - Measure pH change</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="bg-blue-100 rounded-full p-1 mr-2">•</span>
-                  <span>Catalyst Reactions - Observe reaction rate</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="bg-blue-100 rounded-full p-1 mr-2">•</span>
-                  <span>Electrolysis - Split compounds with electricity</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center mb-4">
-                <TestTube className="h-5 w-5 mr-2 text-green-500" />
-                <h3 className="text-lg font-semibold">Safety First</h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Our virtual lab lets you explore chemical reactions that would be dangerous in real life.
+        <div className="mt-8 bg-amber-50 border border-amber-200 rounded-md p-4">
+          <div className="flex items-start">
+            <Shield className="h-6 w-6 text-amber-600 mt-0.5 mr-3 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-amber-800">Safety Reminder</h3>
+              <p className="text-amber-700 text-sm mt-1">
+                While our virtual lab lets you explore chemical reactions safely, always follow proper safety protocols 
+                if performing real experiments. Remember to wear appropriate safety gear and follow lab safety guidelines.
               </p>
-              <div className="bg-amber-50 border border-amber-200 rounded-md p-3">
-                <p className="text-amber-700 text-sm">
-                  <strong>Note:</strong> Always follow proper safety protocols when performing real chemical experiments. 
-                  Remember that virtual behaviors may not perfectly match real chemical properties.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center mb-4">
-                <BookOpen className="h-5 w-5 mr-2 text-purple-500" />
-                <h3 className="text-lg font-semibold">Learning Outcomes</h3>
-              </div>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center">
-                  <span className="bg-purple-100 rounded-full p-1 mr-2">•</span>
-                  <span>Understand chemical reactions visually</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="bg-purple-100 rounded-full p-1 mr-2">•</span>
-                  <span>Practice lab techniques virtually</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="bg-purple-100 rounded-full p-1 mr-2">•</span>
-                  <span>Record and analyze experimental data</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="bg-purple-100 rounded-full p-1 mr-2">•</span>
-                  <span>Learn about chemical properties safely</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </main>
       
