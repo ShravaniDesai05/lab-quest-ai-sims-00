@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -264,7 +263,7 @@ const EnhancedChemistrySimulation: React.FC = () => {
           toast({
             title: "Caution",
             description: "Be careful when mixing these chemicals.",
-            variant: "warning"
+            variant: "default"
           });
         }
       } else {
@@ -502,7 +501,7 @@ const EnhancedChemistrySimulation: React.FC = () => {
 };
 
 // Fallback default chemicals if API fetch fails
-const getDefaultChemicals = (): Chemical[] => [
+const getDefaultChemicals = () => [
   {
     id: 'hcl',
     name: 'Hydrochloric Acid',

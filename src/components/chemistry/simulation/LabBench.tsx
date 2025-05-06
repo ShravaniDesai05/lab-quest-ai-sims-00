@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Beaker, FlaskConical, TestTube, Flame } from "lucide-react";
+import { Beaker, FlaskConical, TestTube, Flame, ThermometerSun, PlayCircle } from "lucide-react";
 import { LabSimulationState, Chemical, ChemicalMixture, Glassware } from '@/types/experiments';
 
 interface LabBenchProps {
@@ -383,7 +382,7 @@ const LabBench: React.FC<LabBenchProps> = ({ labState, onAddChemical }) => {
 
   return (
     <div className="h-full relative flex items-center justify-center bg-gray-50 rounded-lg shadow-inner overflow-hidden">
-      <style jsx global>{`
+      <style jsx>{`
         @keyframes bubble-rise {
           0% { transform: translateY(0) scale(1); opacity: 0.7; }
           100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
