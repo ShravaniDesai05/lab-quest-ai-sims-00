@@ -1,3 +1,4 @@
+
 import { PhysicsExperiments } from '@/types/experiments';
 
 export const experiments: PhysicsExperiments = {
@@ -62,13 +63,13 @@ export const experiments: PhysicsExperiments = {
     description: 'Visualize constructive and destructive interference patterns created by overlapping water waves.',
     difficulty: 'Advanced',
     duration: '40 minutes',
-    content: 'This experiment demonstrates the principles of wave interference and superposition.',
+    content: 'This experiment demonstrates the principles of wave interference and superposition using a virtual ripple tank. By adjusting the frequency, wavelength, and phase difference between wave sources, you can observe how waves combine to create complex interference patterns. This simulation also covers concepts of diffraction and Young\'s double slit experiment.',
     steps: [
-      'Fill a ripple tank with water',
-      'Create two wave sources',
+      'Set up two wave sources in the ripple tank',
+      'Adjust frequency and wavelength parameters',
       'Observe interference patterns',
-      'Measure wavelength and frequency',
-      'Identify nodes and antinodes'
+      'Use measurement tools to analyze patterns',
+      'Experiment with obstacles to observe diffraction'
     ]
   },
   'newtons-laws': {

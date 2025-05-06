@@ -8,6 +8,7 @@ import PendulumSimulation from '@/components/physics/PendulumSimulation';
 import RefractionSimulation from '@/components/physics/RefractionSimulation';
 import OhmsLawSimulation from '@/components/physics/OhmsLawSimulation';
 import NewtonsLawsSimulation from '@/components/physics/NewtonsLawsSimulation';
+import WaveInterferenceSimulation from '@/components/physics/WaveInterferenceSimulation';
 import ExperimentSteps from '@/components/physics/ExperimentSteps';
 import { experiments } from '@/data/physicsExperiments';
 import { PhysicsExperimentData } from '@/types/experiments';
@@ -68,6 +69,8 @@ const PhysicsExperiment = () => {
                 <OhmsLawSimulation />
               ) : experimentId === 'newtons-laws' ? (
                 <NewtonsLawsSimulation />
+              ) : experimentId === 'wave-interference' ? (
+                <WaveInterferenceSimulation />
               ) : (
                 <p className="text-center text-gray-500">
                   Interactive simulation for this experiment is coming soon!

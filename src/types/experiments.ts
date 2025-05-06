@@ -90,3 +90,41 @@ export interface PhysicalObject {
   color: string;
 }
 
+// Water Wave Interference types
+export interface WaveSource {
+  id: string;
+  x: number;
+  y: number;
+  frequency: number;
+  amplitude: number;
+  phase: number;
+  enabled: boolean;
+  type: 'circular' | 'linear';
+  color: string;
+}
+
+export interface WaveMedium {
+  name: string;
+  waveSpeed: number;
+  damping: number;
+  color: string;
+}
+
+export interface Obstacle {
+  type: 'barrier' | 'slit';
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+}
+
+export interface WaveSimulationSettings {
+  sources: WaveSource[];
+  medium: WaveMedium;
+  showIntensityMap: boolean;
+  showWavefronts: boolean;
+  showMathOverlay: boolean;
+  obstacles: Obstacle[];
+  measurementMode: 'none' | 'ruler' | 'probe';
+}
