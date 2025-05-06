@@ -36,6 +36,7 @@ export interface Electrolyte {
   color: string;
 }
 
+// Chemistry Experiment Types
 export interface ChemistryExperimentData {
   title: string;
   description: string;
@@ -52,6 +53,61 @@ export type ChemistryExperiments = {
   [key: string]: ChemistryExperimentData;
 }
 
+// Chemistry Lab Simulation Types
+export interface Chemical {
+  id: string;
+  name: string;
+  formula: string;
+  type: 'acid' | 'base' | 'salt' | 'indicator' | 'solvent' | 'catalyst' | 'metal';
+  color: string;
+  concentration?: number;
+  hazardLevel: 'low' | 'medium' | 'high';
+  hazardLabel?: string;
+  description: string;
+  reactions?: Record<string, ReactionResult>;
+}
+
+export interface ReactionResult {
+  productName?: string;
+  productFormula?: string;
+  colorChange?: string;
+  precipitate?: boolean;
+  gasProduction?: boolean;
+  gasName?: string;
+  temperatureChange?: number;
+  phChange?: number;
+  flameColor?: string;
+}
+
+export interface Glassware {
+  id: string;
+  type: 'beaker' | 'test-tube' | 'flask' | 'burette' | 'pipette';
+  capacity: number;
+  contents: ChemicalMixture[];
+  position: { x: number; y: number };
+}
+
+export interface ChemicalMixture {
+  chemicalId: string;
+  volume: number;
+  concentration: number;
+}
+
+export interface LabSimulationState {
+  activeExperiment: string;
+  mode: 'procedure' | 'explore';
+  glassware: Glassware[];
+  chemicals: Chemical[];
+  temperature: number;
+  heaterOn: boolean;
+  timer: number;
+  timerRunning: boolean;
+  ph: number;
+  observations: string[];
+  procedureStep: number;
+}
+
+// Blood group types
 export interface BloodGroup {
   name: string;
   hasAntigenA: boolean;
@@ -66,6 +122,7 @@ export interface BloodTest {
   result: boolean; // true = agglutination (clumping), false = no reaction
 }
 
+// Physics simulation types
 export interface RefractionMedium {
   name: string;
   refractiveIndex: number;

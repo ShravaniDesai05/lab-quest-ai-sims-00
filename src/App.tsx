@@ -15,6 +15,7 @@ import BiologyPollenGermination from "./pages/BiologyPollenGermination";
 import ChemistryExperiment from "./pages/ChemistryExperiment";
 import PhysicsExperiment from "./pages/PhysicsExperiment";
 import Achievements from "./pages/Achievements";
+import ChemistryLab from "./pages/ChemistryLab";
 import NotFound from "./pages/NotFound";
 import "./App.css";
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
           <Route path="/biology/pollen-germination" element={<BiologyPollenGermination />} />
           <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
+          <Route path="/chemistry/lab" element={<ChemistryLab />} />
           <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="*" element={<NotFound />} />

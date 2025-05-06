@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Bookmark, Clock, FlaskConical, Atom, Battery, Zap } from 'lucide-react';
+import { Bookmark, Clock, FlaskConical, Atom, Battery, Zap, Beaker, Flask } from 'lucide-react';
 
 const Chemistry = () => {
   const experiments = [
@@ -64,6 +64,33 @@ const Chemistry = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Chemistry Experiments</h1>
           <p className="text-gray-600 mt-2">Explore the fascinating world of chemical reactions and transformations</p>
         </div>
+        
+        {/* New Virtual Chemistry Lab Card */}
+        <Card className="mb-10 overflow-hidden hover:shadow-lg transition-shadow border-purple-200 bg-gradient-to-r from-purple-50 to-blue-50">
+          <div className="p-6 flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="w-16 h-16 bg-purple-200 rounded-full flex items-center justify-center">
+                <Beaker className="w-8 h-8 text-purple-700" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-2xl font-bold mb-1">Virtual Chemistry Lab</h3>
+                <p className="text-gray-700 mb-4">
+                  Experience our interactive lab environment with realistic chemical reactions and experiments
+                </p>
+                <Button asChild className="bg-purple-600 hover:bg-purple-700">
+                  <Link to="/chemistry/lab">
+                    Enter Virtual Lab
+                  </Link>
+                </Button>
+              </div>
+            </div>
+            <div className="hidden md:flex space-x-4">
+              <Flask className="w-12 h-12 text-purple-400" />
+              <TestTube className="w-12 h-12 text-blue-400" />
+              <FlaskConical className="w-12 h-12 text-green-400" />
+            </div>
+          </div>
+        </Card>
         
         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
           {experiments
