@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,9 +27,11 @@ import {
   FastForward,
   Scale,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
-import { Chemical, LabSimulationState } from '@/types/experiments';
+import { Chemical, LabSimulationState, ChemicalMixture } from '@/types/experiments';
 
 const defaultChemicals: Chemical[] = [
   {

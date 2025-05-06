@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Bookmark, Clock, FlaskConical, Atom, Battery, Zap, Beaker, Flask } from 'lucide-react';
+import { Bookmark, Clock, FlaskConical, Atom, Battery, Zap, Beaker, FlaskRound } from 'lucide-react';
 
 const Chemistry = () => {
   const experiments = [
@@ -85,9 +84,9 @@ const Chemistry = () => {
               </div>
             </div>
             <div className="hidden md:flex space-x-4">
-              <Flask className="w-12 h-12 text-purple-400" />
-              <TestTube className="w-12 h-12 text-blue-400" />
-              <FlaskConical className="w-12 h-12 text-green-400" />
+              <FlaskRound className="w-12 h-12 text-purple-400" />
+              <FlaskConical className="w-12 h-12 text-blue-400" />
+              <Beaker className="w-12 h-12 text-green-400" />
             </div>
           </div>
         </Card>
