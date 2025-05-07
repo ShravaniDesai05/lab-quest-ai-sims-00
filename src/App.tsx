@@ -12,6 +12,7 @@ import BiologyExperiment from "./pages/BiologyExperiment";
 import BiologyBloodGroups from "./pages/BiologyBloodGroups";
 import BiologyCatalaseExperiment from "./pages/BiologyCatalaseExperiment";
 import BiologyPollenGermination from "./pages/BiologyPollenGermination";
+import BiologyModels from "./pages/BiologyModels";
 import ChemistryExperiment from "./pages/ChemistryExperiment";
 import PhysicsExperiment from "./pages/PhysicsExperiment";
 import ChemistryLab from "./pages/ChemistryLab";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
           <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
           <Route path="/biology/pollen-germination" element={<BiologyPollenGermination />} />
+          <Route path="/biology/models" element={<BiologyModels />} />
           <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
           <Route path="/chemistry/lab" element={<ChemistryLab />} />
           <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
