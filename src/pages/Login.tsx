@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/components/ui/use-toast';
-import { Envelope, Lock, TestTube, Key } from 'lucide-react';
+import { Mail, Lock, TestTube, Key } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -109,7 +108,7 @@ const Login = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Envelope className="h-5 w-5 text-gray-400" />
+                    <Mail className="h-5 w-5 text-gray-400" />
                   </div>
                   <Input
                     id="email"
