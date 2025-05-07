@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { FlaskConical, BookOpen, Award } from 'lucide-react';
+import { FlaskConical, BookOpen } from 'lucide-react';
 
 const SiteHeader = () => {
   return (
@@ -23,10 +23,6 @@ const SiteHeader = () => {
           </Link>
           <Link to="/physics" className="text-sm font-medium text-gray-700 hover:text-lab-purple transition-colors">
             Physics
-          </Link>
-          <Link to="/achievements" className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-amber-500 transition-colors">
-            <Award className="h-4 w-4" />
-            <span>Achievements</span>
           </Link>
         </nav>
         <div className="flex items-center gap-4">
