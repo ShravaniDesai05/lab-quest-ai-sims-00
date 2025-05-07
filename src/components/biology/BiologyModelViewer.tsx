@@ -1,8 +1,7 @@
 
 import React, { useRef, useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, useGLTF, Html } from '@react-three/drei';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { OrbitControls, PerspectiveCamera, Html } from '@react-three/drei';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
@@ -29,7 +28,7 @@ const ModelPlaceholder = ({ name, parts }: { name: string, parts: any[] }) => {
           return (
             <mesh key={shape.name} position={shape.position as any} scale={shape.scale as any}>
               <sphereGeometry args={[1, 32, 32]} />
-              <meshStandardMaterial color={shape.color} transparent opacity={0.2} />
+              <meshStandardMaterial transparent opacity={0.2} />
             </mesh>
           );
         }
@@ -55,7 +54,7 @@ const ModelPlaceholder = ({ name, parts }: { name: string, parts: any[] }) => {
                 <torusGeometry args={[0.5, 0.2, 16, 32]} />
               )}
               <meshStandardMaterial 
-                color={isHovered ? '#ffffff' : shape.color} 
+                color={isHovered ? '#ffffff' : shape.color}
                 emissive={isHovered ? shape.color : '#000000'}
                 emissiveIntensity={isHovered ? 0.5 : 0}
               />

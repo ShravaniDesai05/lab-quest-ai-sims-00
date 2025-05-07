@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SiteHeader from '@/components/layout/SiteHeader';
-import { Bookmark, Clock, Cube } from 'lucide-react';
+import { Bookmark, Clock, Microscope } from 'lucide-react';
 
 const Biology = () => {
   const experiments = [
@@ -76,7 +76,7 @@ const Biology = () => {
           <div className="mt-4">
             <Button asChild variant="outline" className="gap-2">
               <Link to="/biology/models">
-                <Cube className="h-4 w-4" />
+                <Microscope className="h-4 w-4" />
                 Explore 3D Biology Models
               </Link>
             </Button>
