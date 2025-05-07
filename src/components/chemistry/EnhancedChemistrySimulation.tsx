@@ -262,8 +262,7 @@ const EnhancedChemistrySimulation: React.FC = () => {
         } else if (hazardLevel === 'medium') {
           toast({
             title: "Caution",
-            description: "Be careful when mixing these chemicals.",
-            variant: "default"
+            description: "Be careful when mixing these chemicals."
           });
         }
       } else {
@@ -280,7 +279,7 @@ const EnhancedChemistrySimulation: React.FC = () => {
 
     toast({
       title: "Chemical Added",
-      description: `Added ${chemical.name} to the container`,
+      description: `Added ${chemical.name} to the container`
     });
   };
 
@@ -375,7 +374,7 @@ const EnhancedChemistrySimulation: React.FC = () => {
 
     toast({
       title: "Experiment Reset",
-      description: "All glassware and measurements have been reset.",
+      description: "All glassware and measurements have been reset."
     });
   };
 

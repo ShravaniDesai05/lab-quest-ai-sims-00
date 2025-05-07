@@ -17,6 +17,11 @@ const ChemicalShelf: React.FC<ChemicalShelfProps> = ({ chemicals }) => {
     return chemicals.filter(chem => chem.type === chemicalFilter);
   };
 
+  const handleDragStart = (e: React.DragEvent, chemical: Chemical) => {
+    e.dataTransfer.setData('chemical', JSON.stringify(chemical));
+    e.dataTransfer.effectAllowed = 'copy';
+  };
+
   return (
     <div className="space-y-4 h-full">
       <h3 className="text-lg font-semibold flex items-center gap-2">
@@ -75,10 +80,8 @@ const ChemicalShelf: React.FC<ChemicalShelfProps> = ({ chemicals }) => {
             <div
               key={chemical.id}
               className="p-3 border rounded-lg hover:bg-gray-50 cursor-grab transition-colors"
-              draggable
-              onDragStart={(e) => {
-                e.dataTransfer.setData('chemical', JSON.stringify(chemical));
-              }}
+              draggable="true"
+              onDragStart={(e) => handleDragStart(e, chemical)}
             >
               <div className="flex items-start gap-3">
                 <div 

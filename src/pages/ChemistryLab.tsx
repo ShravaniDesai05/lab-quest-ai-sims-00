@@ -25,7 +25,7 @@ const ChemistryLab = () => {
             </div>
             <div>
               <h2 className="text-xl font-semibold">Interactive Chemistry Workbench</h2>
-              <p className="text-gray-600">Drag chemicals, observe realistic reactions, and record your findings</p>
+              <p className="text-gray-600">Drag chemicals from the shelf to containers, observe realistic reactions, and record your findings</p>
             </div>
           </div>
           

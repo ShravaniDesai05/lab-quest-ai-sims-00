@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Beaker, FlaskConical, TestTube, Flame, ThermometerSun, PlayCircle } from "lucide-react";
+import { Beaker, FlaskConical, TestTube, Flame, ThermometerSun as Thermometer, PlayCircle } from "lucide-react";
 import { LabSimulationState, Chemical, ChemicalMixture, Glassware } from '@/types/experiments';
 
 interface LabBenchProps {
@@ -15,6 +15,7 @@ const LabBench: React.FC<LabBenchProps> = ({ labState, onAddChemical }) => {
   
   const handleDragOver = (e: React.DragEvent, glasswaredId: string) => {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
     setHoveredGlassware(glasswaredId);
   };
 
@@ -26,6 +27,11 @@ const LabBench: React.FC<LabBenchProps> = ({ labState, onAddChemical }) => {
     e.preventDefault();
     try {
       const chemicalData = e.dataTransfer.getData('chemical');
+      if (!chemicalData) {
+        console.error('No chemical data found in drop event');
+        return;
+      }
+      
       const chemical = JSON.parse(chemicalData) as Chemical;
       onAddChemical(chemical, glasswaredId);
       
@@ -398,7 +404,7 @@ const LabBench: React.FC<LabBenchProps> = ({ labState, onAddChemical }) => {
       <div className="absolute top-6 right-6">
         {/* Temperature display */}
         <div className="bg-white p-2 rounded-md shadow flex items-center mb-4">
-          <ThermometerSun className="h-5 w-5 text-red-500 mr-2" />
+          <Thermometer className="h-5 w-5 text-red-500 mr-2" />
           <div>
             <div className="text-xs text-gray-500">Temperature</div>
             <div className="font-semibold">{labState.temperature.toFixed(1)}°C</div>

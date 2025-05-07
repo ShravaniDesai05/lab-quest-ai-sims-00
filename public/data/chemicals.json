@@ -1,0 +1,172 @@
+
+[
+  {
+    "id": "hcl",
+    "name": "Hydrochloric Acid",
+    "formula": "HCl",
+    "type": "acid",
+    "color": "rgba(255, 255, 255, 0.8)",
+    "concentration": 0.1,
+    "hazardLevel": "high",
+    "hazardLabel": "Corrosive",
+    "description": "Strong acid often used in lab experiments",
+    "reactions": {
+      "naoh": {
+        "productName": "Sodium Chloride",
+        "productFormula": "NaCl",
+        "colorChange": "transparent",
+        "precipitate": false,
+        "equation": "HCl + NaOH → NaCl + H₂O"
+      },
+      "zn": {
+        "gasProduction": true,
+        "gasName": "Hydrogen",
+        "equation": "Zn + 2HCl → ZnCl₂ + H₂"
+      }
+    }
+  },
+  {
+    "id": "naoh",
+    "name": "Sodium Hydroxide",
+    "formula": "NaOH",
+    "type": "base",
+    "color": "rgba(255, 255, 255, 0.8)",
+    "concentration": 0.1,
+    "hazardLevel": "high",
+    "hazardLabel": "Corrosive",
+    "description": "Strong base used in many reactions",
+    "reactions": {
+      "phenolphthalein": {
+        "colorChange": "magenta",
+        "equation": "Phenolphthalein + OH⁻ → Pink complex"
+      }
+    }
+  },
+  {
+    "id": "phenolphthalein",
+    "name": "Phenolphthalein",
+    "formula": "C₂₀H₁₄O₄",
+    "type": "indicator",
+    "color": "rgba(255, 255, 255, 0.8)",
+    "hazardLevel": "low",
+    "description": "pH indicator that turns pink in basic solutions"
+  },
+  {
+    "id": "agno3",
+    "name": "Silver Nitrate",
+    "formula": "AgNO₃",
+    "type": "salt",
+    "color": "rgba(255, 255, 255, 0.9)",
+    "hazardLevel": "medium",
+    "hazardLabel": "Irritant",
+    "description": "Used in precipitation reactions",
+    "reactions": {
+      "nacl": {
+        "precipitate": true,
+        "precipitateColor": "white",
+        "productName": "Silver Chloride",
+        "productFormula": "AgCl",
+        "equation": "AgNO₃ + NaCl → AgCl + NaNO₃"
+      }
+    }
+  },
+  {
+    "id": "nacl",
+    "name": "Sodium Chloride",
+    "formula": "NaCl",
+    "type": "salt",
+    "color": "rgba(255, 255, 255, 0.9)",
+    "hazardLevel": "low",
+    "description": "Common salt"
+  },
+  {
+    "id": "pb_no3_2",
+    "name": "Lead Nitrate",
+    "formula": "Pb(NO₃)₂",
+    "type": "salt",
+    "color": "rgba(255, 255, 255, 0.9)",
+    "hazardLevel": "high",
+    "hazardLabel": "Toxic",
+    "description": "Toxic salt used in precipitation reactions",
+    "reactions": {
+      "ki": {
+        "precipitate": true,
+        "precipitateColor": "yellow",
+        "productName": "Lead Iodide",
+        "productFormula": "PbI₂",
+        "equation": "Pb(NO₃)₂ + 2KI → PbI₂ + 2KNO₃"
+      }
+    }
+  },
+  {
+    "id": "ki",
+    "name": "Potassium Iodide",
+    "formula": "KI",
+    "type": "salt",
+    "color": "rgba(255, 255, 255, 0.9)",
+    "hazardLevel": "low",
+    "description": "Salt used in precipitation reactions"
+  },
+  {
+    "id": "h2o",
+    "name": "Distilled Water",
+    "formula": "H₂O",
+    "type": "solvent",
+    "color": "rgba(200, 200, 255, 0.2)",
+    "hazardLevel": "low",
+    "description": "Universal solvent"
+  },
+  {
+    "id": "h2o2",
+    "name": "Hydrogen Peroxide",
+    "formula": "H₂O₂",
+    "type": "solvent",
+    "color": "rgba(200, 200, 255, 0.2)",
+    "concentration": 0.03,
+    "hazardLevel": "medium",
+    "hazardLabel": "Oxidizer",
+    "description": "Decomposes into water and oxygen",
+    "reactions": {
+      "mno2": {
+        "gasProduction": true,
+        "gasName": "Oxygen",
+        "temperatureChange": 5,
+        "equation": "2H₂O₂ → 2H₂O + O₂"
+      }
+    }
+  },
+  {
+    "id": "mno2",
+    "name": "Manganese Dioxide",
+    "formula": "MnO₂",
+    "type": "catalyst",
+    "color": "#3D3C3A",
+    "hazardLevel": "medium",
+    "description": "Catalyst for H₂O₂ decomposition"
+  },
+  {
+    "id": "zn",
+    "name": "Zinc Metal",
+    "formula": "Zn",
+    "type": "metal",
+    "color": "#B3B3B3",
+    "hazardLevel": "low",
+    "description": "Reactive metal that produces hydrogen with acids"
+  },
+  {
+    "id": "cucl2",
+    "name": "Copper Chloride",
+    "formula": "CuCl₂",
+    "type": "salt",
+    "color": "rgba(0, 200, 215, 0.5)",
+    "hazardLevel": "medium",
+    "hazardLabel": "Irritant",
+    "description": "Salt that produces green-blue flame",
+    "reactions": {
+      "flame": {
+        "flameColor": "#00FF7F",
+        "equation": "CuCl₂ heat→ Cu²⁺ + excited electrons → light emission"
+      }
+    }
+  }
+]
