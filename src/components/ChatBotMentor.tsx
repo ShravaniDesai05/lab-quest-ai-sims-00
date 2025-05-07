@@ -3,18 +3,19 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Microscope, Plus, Send } from 'lucide-react';
+import { Microscope, Plus, Send, X, Dna } from 'lucide-react';
 
 const ChatBotMentor = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hello! I\'m your AI science mentor. How can I help with your experiments today?'
+      content: 'Hi, I\'m BioBot! Need help with any experiment?'
     }
   ]);
   
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   
   const handleSend = () => {
     if (!input.trim()) return;
@@ -29,15 +30,15 @@ const ChatBotMentor = () => {
       const question = input.toLowerCase();
       
       if (question.includes('osmosis') || question.includes('potato')) {
-        response = "Osmosis is the movement of water molecules from an area of high concentration to an area of low concentration. In our potato experiment, when placed in salt water, water moves out of the potato cells making them less turgid. Try adjusting the salt concentration in your experiment!";
-      } else if (question.includes('titration') || question.includes('acid') || question.includes('base')) {
-        response = "Acid-base titration determines the concentration of an acid or base by neutralizing it with a base or acid of known concentration. Watch for the color change of the indicator - that's your endpoint! In the simulation, you can control the flow rate for more precision.";
-      } else if (question.includes('pendulum') || question.includes('newton')) {
-        response = "A pendulum demonstrates Newton's laws of motion. The period of a pendulum depends on its length and gravity, not the mass! Try changing the length in the simulation to see how it affects the period.";
+        response = "Osmosis is the movement of water molecules from an area of high concentration to an area of low concentration. In our potato experiment, water moves out of the potato cells making them less turgid. Try adjusting the salt concentration!";
+      } else if (question.includes('blood') || question.includes('group')) {
+        response = "Blood group identification relies on antigen-antibody reactions. Different blood groups (A, B, AB, O) have different antigens on red blood cells. In our virtual lab, you can see how these antigens interact with antibodies!";
+      } else if (question.includes('cell') || question.includes('onion')) {
+        response = "Onion cells are perfect for microscope observation because they form a thin, transparent layer. Look for the cell wall, nucleus, and cytoplasm. Try adjusting the microscope focus to see different cell layers!";
       } else if (question.includes('experiment') || question.includes('how')) {
-        response = "To run an experiment, simply select the subject area you're interested in (Biology, Chemistry, or Physics), then choose an experiment. Follow the onscreen instructions and use the interactive controls to change variables. Don't forget to record your observations!";
+        response = "To run an experiment, simply select one from the Biology Lab homepage and follow the step-by-step instructions. You can adjust variables and observe the results in real-time. Don't forget to record your observations!";
       } else {
-        response = "That's an interesting question about science! To explore this concept further, try one of our interactive experiments. You can adjust variables and see real-time results to deepen your understanding.";
+        response = "That's an interesting biology question! To explore this concept further, try one of our interactive experiments. You can adjust variables and see real-time results to deepen your understanding.";
       }
       
       setMessages((prevMessages) => [...prevMessages, { role: 'assistant', content: response }]);
@@ -52,13 +53,35 @@ const ChatBotMentor = () => {
       handleSend();
     }
   };
+
+  if (!isExpanded) {
+    return (
+      <div className="relative">
+        <Button 
+          onClick={() => setIsExpanded(true)} 
+          className="h-16 w-16 rounded-full bg-lab-green hover:bg-green-600 shadow-lg flex items-center justify-center"
+        >
+          <Dna className="h-8 w-8 text-white" />
+          <span className="sr-only">Open Biology Assistant</span>
+        </Button>
+        <div className="absolute -top-12 right-0 bg-white rounded-lg px-4 py-2 shadow-md animate-bounce text-sm whitespace-nowrap">
+          Need help with biology?
+        </div>
+      </div>
+    );
+  }
   
   return (
     <Card className="w-full h-[400px] flex flex-col shadow-lg border-gray-200">
-      <CardHeader className="bg-lab-blue text-white py-3 px-4">
-        <div className="flex items-center gap-2">
-          <Microscope className="h-5 w-5" />
-          <div className="font-medium">AI Science Mentor</div>
+      <CardHeader className="bg-gradient-to-r from-green-600 to-green-500 text-white py-3 px-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Dna className="h-5 w-5 animate-pulse" />
+            <div className="font-medium">BioBot Assistant</div>
+          </div>
+          <Button variant="ghost" size="icon" className="text-white hover:bg-green-700" onClick={() => setIsExpanded(false)}>
+            <X className="h-4 w-4" />
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -70,7 +93,7 @@ const ChatBotMentor = () => {
             <div 
               className={`max-w-[80%] rounded-lg px-4 py-2 ${
                 message.role === 'user' 
-                  ? 'bg-lab-blue text-white' 
+                  ? 'bg-lab-green text-white' 
                   : 'bg-gray-100 text-gray-800'
               }`}
             >
@@ -82,9 +105,9 @@ const ChatBotMentor = () => {
           <div className="flex justify-start">
             <div className="max-w-[80%] rounded-lg px-4 py-2 bg-gray-100">
               <div className="flex space-x-1 items-center">
-                <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
-                <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-bounce"></div>
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
               </div>
             </div>
           </div>
@@ -101,7 +124,7 @@ const ChatBotMentor = () => {
             <Plus className="h-5 w-5" />
           </Button>
           <Input
-            placeholder="Ask about an experiment..."
+            placeholder="Ask about biology experiments..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -112,7 +135,7 @@ const ChatBotMentor = () => {
             size="icon" 
             onClick={handleSend} 
             disabled={!input.trim() || isLoading}
-            className="rounded-full bg-lab-blue hover:bg-blue-700"
+            className="rounded-full bg-lab-green hover:bg-green-600"
           >
             <Send className="h-4 w-4" />
           </Button>
