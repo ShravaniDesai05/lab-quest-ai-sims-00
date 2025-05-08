@@ -11,7 +11,7 @@ const SiteHeader = () => {
         <div className="flex items-center gap-2">
           <FlaskConical className="h-8 w-8 text-lab-blue" />
           <Link to="/" className="text-xl font-bold tracking-tight text-gray-900">
-            Science Lab AI
+            Vigyaankosh
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-6">

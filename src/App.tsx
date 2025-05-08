@@ -18,6 +18,7 @@ import PhysicsExperiment from "./pages/PhysicsExperiment";
 import ChemistryLab from "./pages/ChemistryLab";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import About from "./pages/About";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/biology" element={<Biology />} />
           <Route path="/chemistry" element={<Chemistry />} />
           <Route path="/physics" element={<Physics />} />
+          <Route path="/about" element={<About />} />
           <Route path="/biology/:experimentId" element={<BiologyExperiment />} />
           <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
           <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
