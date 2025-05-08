@@ -1,75 +1,101 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import SiteHeader from '@/components/layout/SiteHeader';
-import { Bookmark, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import PhysicsHeader from '@/components/physics/PhysicsHeader';
+import ExperimentCard from '@/components/physics/ExperimentCard';
+import ProgressTracker from '@/components/physics/ProgressTracker';
+import PhysicsFooter from '@/components/physics/PhysicsFooter';
+import PhysicsChatBot from '@/components/physics/PhysicsChatBot';
 import { experiments } from '@/data/physicsExperiments';
+import { useToast } from "@/hooks/use-toast";
 
 const Physics = () => {
+  const { toast } = useToast();
+  // Track completed experiments (would connect to user data in a real app)
+  const [completedExperiments, setCompletedExperiments] = useState<string[]>([]);
+  
+  // Convert experiments data for display
   const experimentsList = Object.entries(experiments).map(([id, data]) => ({
     id,
     title: data.title,
     description: data.description,
     difficulty: data.difficulty,
     duration: data.duration,
-    image: '/placeholder.svg'
+    completed: completedExperiments.includes(id)
   }));
+  
+  // Check if we've unlocked bonus challenges
+  const showBonusChallenge = completedExperiments.length >= 3;
+  
+  // Show toast for unlock (would be triggered when a third experiment is completed)
+  React.useEffect(() => {
+    if (completedExperiments.length === 3) {
+      toast({
+        title: "🎉 Bonus Challenge Unlocked!",
+        description: "You've completed 3 experiments! Try the Quantum Physics challenge.",
+      });
+    }
+  }, [completedExperiments.length, toast]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-purple-50">
-      <SiteHeader />
-      
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <main className="flex-1 container py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Physics Experiments</h1>
-          <p className="text-gray-600 mt-2">Explore the fundamental laws and principles that govern our physical world</p>
-        </div>
+        <PhysicsHeader />
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {experimentsList.map((experiment) => (
-            <Card key={experiment.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-48 bg-gray-100 flex items-center justify-center">
-                <img 
-                  src={experiment.image} 
-                  alt={experiment.title}
-                  className="w-16 h-16 opacity-30" 
+        <div className="grid lg:grid-cols-3 gap-8 mb-10">
+          <div className="lg:col-span-2">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-2">
+              <span className="inline-block w-2 h-6 bg-blue-600 rounded-full"></span>
+              Available Experiments
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+              {experimentsList.map((experiment) => (
+                <ExperimentCard
+                  key={experiment.id}
+                  {...experiment}
+                  image="/placeholder.svg"
                 />
-              </div>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="bg-purple-100 text-lab-purple text-xs font-medium rounded px-2 py-1">
-                    {experiment.difficulty}
-                  </span>
-                  <div className="flex items-center text-gray-500 text-xs">
-                    <Clock className="h-3 w-3 mr-1" />
-                    {experiment.duration}
-                  </div>
+              ))}
+              
+              {showBonusChallenge && (
+                <div className="col-span-full bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg p-6 text-white shadow-glow animate-pulse-badge mt-4">
+                  <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+                    <span className="text-cyan-300">✨</span> Bonus Challenge Unlocked!
+                  </h3>
+                  <p className="mb-4">You've completed enough experiments to access advanced physics challenges.</p>
+                  <button className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded-md transition-colors">
+                    Explore Quantum Physics
+                  </button>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{experiment.title}</h3>
-                <p className="text-gray-600 text-sm">{experiment.description}</p>
-              </CardContent>
-              <CardFooter className="pt-0 flex justify-between">
-                <Button asChild variant="outline" size="sm">
-                  <Link to={`/physics/${experiment.id}`}>
-                    Start Experiment
-                  </Link>
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <Bookmark className="h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+              )}
+            </div>
+          </div>
+          
+          <div>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-2">
+              <span className="inline-block w-2 h-6 bg-blue-600 rounded-full"></span>
+              Your Progress
+            </h2>
+            <div className="space-y-6">
+              <ProgressTracker 
+                completedExperiments={completedExperiments.length} 
+                totalExperiments={Object.keys(experiments).length} 
+              />
+              
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg border border-blue-100">
+                <h3 className="text-lg font-semibold mb-3 text-gray-800">Did You Know?</h3>
+                <p className="text-sm text-gray-700">
+                  The concept of electromagnetism, unified by James Clerk Maxwell, 
+                  demonstrates how electric currents create magnetic fields, and changing 
+                  magnetic fields create electric currents.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       
-      <footer className="bg-white py-6 border-t">
-        <div className="container text-center text-gray-500 text-sm">
-          © {new Date().getFullYear()} Science Lab AI. All rights reserved.
-        </div>
-      </footer>
+      <PhysicsFooter />
+      <PhysicsChatBot />
     </div>
   );
 };
