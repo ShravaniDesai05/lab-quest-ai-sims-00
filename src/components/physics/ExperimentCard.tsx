@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Check, CircuitBoard, Gauge, LightbulbOff, Atom, Pendulum, Prism } from 'lucide-react';
+import { Check, CircuitBoard, Gauge, LightbulbOff, Atom, Microscope, Beaker } from 'lucide-react';
 
 interface ExperimentCardProps {
   id: string;
@@ -25,7 +25,7 @@ const getExperimentIcon = (title: string) => {
   if (title.includes("Ohm")) return <CircuitBoard className="h-16 w-16 opacity-80" />;
   if (title.includes("Pendulum")) return <Atom className="h-16 w-16 opacity-80" />;
   if (title.includes("Wave")) return <Gauge className="h-16 w-16 opacity-80" />;
-  if (title.includes("Light") || title.includes("Refraction")) return <Prism className="h-16 w-16 opacity-80" />;
+  if (title.includes("Light") || title.includes("Refraction")) return <Beaker className="h-16 w-16 opacity-80" />;
   return <Atom className="h-16 w-16 opacity-80" />;
 };
 

@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Atom, Plus, Send, X, Zap, Lightbulb } from 'lucide-react';
+import { Brain, Atom, Plus, Send, X, Zap, Lightbulb } from 'lucide-react';
 
 const PhysicsChatBot = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hi, I\'m PhysixBot! Need help with velocity or voltage?'
+      content: "Hi, I'm Sci AI Mentor! Ready to explore science together?"
     }
   ]);
   
@@ -17,6 +17,7 @@ const PhysicsChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showNotification, setShowNotification] = useState(true);
+  const [isListening, setIsListening] = useState(false);
   
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -35,7 +36,7 @@ const PhysicsChatBot = () => {
     setMessages([...messages, { role: 'user', content: input }]);
     setIsLoading(true);
     
-    // Simulate AI response
+    // Simulate AI response with faster response time
     setTimeout(() => {
       let response;
       const question = input.toLowerCase();
@@ -50,6 +51,12 @@ const PhysicsChatBot = () => {
         response = "To run an experiment in the Physics Lab, simply select one from the homepage and follow the step-by-step instructions. You can adjust variables and observe the results in real-time. Don't forget to record your observations!";
       } else if (question.includes('pendulum')) {
         response = "A pendulum is a weight suspended from a pivot that can swing freely. The period of a pendulum depends on its length and gravity, not its mass! Try our pendulum simulator to see how changing these variables affects the swing.";
+      } else if (question.includes('aim') || question.includes('purpose')) {
+        response = "This physics experiment aims to demonstrate fundamental physical laws and principles in action. By interacting with variables, you'll see how theoretical concepts apply to real-world systems and develop a deeper understanding of physics.";
+      } else if (question.includes('result') || question.includes('outcome')) {
+        response = "Your results are displayed in real-time on the graph panel. The relationship between variables follows the expected physical laws. You can export this data for further analysis or try different parameter combinations.";
+      } else if (question.includes('explain') || question.includes('concept')) {
+        response = "This concept is based on fundamental physics principles that describe how energy and forces interact in our universe. The mathematical relationships we observe allow us to predict how systems behave under different conditions.";
       } else {
         response = "That's an interesting physics question! To explore this concept further, try one of our interactive experiments. You can adjust variables and see real-time results to deepen your understanding of physical laws.";
       }
@@ -57,7 +64,7 @@ const PhysicsChatBot = () => {
       setMessages((prevMessages) => [...prevMessages, { role: 'assistant', content: response }]);
       setIsLoading(false);
       setInput('');
-    }, 1000);
+    }, 400); // Faster response time
   };
   
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -72,6 +79,25 @@ const PhysicsChatBot = () => {
     setShowNotification(false);
   };
 
+  const toggleVoiceInput = () => {
+    if (!isListening) {
+      // Check if browser supports SpeechRecognition
+      if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        // This is just the interface - in a real implementation, we'd process voice input
+        setIsListening(true);
+        // Simulate voice recognition after a short delay
+        setTimeout(() => {
+          setIsListening(false);
+          setInput("What is the aim of this experiment?");
+        }, 2000);
+      } else {
+        alert("Voice input is not supported in your browser. Please use Chrome or Edge for this feature.");
+      }
+    } else {
+      setIsListening(false);
+    }
+  };
+
   if (!isExpanded) {
     return (
       <div className="fixed bottom-6 right-6 z-50">
@@ -79,8 +105,11 @@ const PhysicsChatBot = () => {
           onClick={toggleExpand} 
           className="h-16 w-16 rounded-full bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 shadow-glow flex items-center justify-center"
         >
-          <Atom className="h-8 w-8 text-white animate-pulse" />
-          <span className="sr-only">Open Physics Assistant</span>
+          <div className="relative flex items-center justify-center">
+            <Brain className="h-7 w-7 text-white absolute animate-pulse" />
+            <Atom className="h-7 w-7 text-white opacity-70" />
+          </div>
+          <span className="sr-only">Open Science Assistant</span>
         </Button>
         {showNotification && (
           <div className="absolute -top-16 right-0 bg-white rounded-xl px-5 py-3 shadow-lg animate-bounce text-sm whitespace-nowrap flex items-center gap-2">
@@ -100,8 +129,11 @@ const PhysicsChatBot = () => {
       <CardHeader className="bg-gradient-to-r from-blue-800 to-indigo-700 text-white py-3 px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-cyan-300" />
-            <div className="font-medium">PhysixBot</div>
+            <div className="relative flex items-center justify-center">
+              <Brain className="h-5 w-5 text-cyan-300 animate-pulse" />
+              <Atom className="h-5 w-5 text-cyan-300 opacity-70 absolute" />
+            </div>
+            <div className="font-medium">Sci AI Mentor</div>
             <div className="text-xs bg-green-500/30 text-green-300 px-1.5 rounded">Online</div>
           </div>
           <Button variant="ghost" size="icon" className="text-white hover:bg-blue-800/50" onClick={toggleExpand}>
@@ -144,9 +176,16 @@ const PhysicsChatBot = () => {
             type="button" 
             size="icon" 
             variant="ghost"
-            className="rounded-full hover:bg-blue-50"
+            className={`rounded-full hover:bg-blue-50 ${isListening ? 'bg-red-100 text-red-600 animate-pulse' : ''}`}
+            onClick={toggleVoiceInput}
+            title="Voice input"
           >
-            <Plus className="h-5 w-5" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
           </Button>
           <Input
             placeholder="Ask about physics concepts..."
