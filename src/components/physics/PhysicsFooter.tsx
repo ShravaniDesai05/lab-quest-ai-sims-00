@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { HomeIcon, Flask, Microscope, History, BookText } from 'lucide-react';
+import { HomeIcon, Beaker, Microscope, History, BookText } from 'lucide-react';
 
 const PhysicsFooter = () => {
   return (
@@ -19,7 +19,7 @@ const PhysicsFooter = () => {
             </Button>
             <Button asChild variant="outline" size="sm" className="border-purple-200 hover:border-purple-500">
               <Link to="/chemistry">
-                <Flask className="mr-2 h-4 w-4" />
+                <Beaker className="mr-2 h-4 w-4" />
                 Chemistry Lab
               </Link>
             </Button>
