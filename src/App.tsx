@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import Biology from "./pages/Biology";
 import Chemistry from "./pages/Chemistry";
@@ -27,31 +28,33 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/biology" element={<Biology />} />
-            <Route path="/chemistry" element={<Chemistry />} />
-            <Route path="/physics" element={<Physics />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/biology/:experimentId" element={<BiologyExperiment />} />
-            <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
-            <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
-            <Route path="/biology/pollen-germination" element={<BiologyPollenGermination />} />
-            <Route path="/biology/models" element={<BiologyModels />} />
-            <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
-            <Route path="/chemistry/lab" element={<ChemistryLab />} />
-            <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="system" storageKey="vk-theme">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/biology" element={<Biology />} />
+              <Route path="/chemistry" element={<Chemistry />} />
+              <Route path="/physics" element={<Physics />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/biology/:experimentId" element={<BiologyExperiment />} />
+              <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
+              <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
+              <Route path="/biology/pollen-germination" element={<BiologyPollenGermination />} />
+              <Route path="/biology/models" element={<BiologyModels />} />
+              <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
+              <Route path="/chemistry/lab" element={<ChemistryLab />} />
+              <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

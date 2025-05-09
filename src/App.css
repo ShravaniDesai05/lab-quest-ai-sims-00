@@ -1,23 +1,12 @@
+
 #root {
-  max-width: 1280px;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
+/* The below keeps the existing animation for logos */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -33,10 +22,91 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* Custom styles for our theme */
+.glass-card {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl shadow-md;
 }
 
-.read-the-docs {
-  color: #888;
+.hover-link {
+  @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-lab-blue dark:after:bg-lab-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+}
+
+/* Interactive elements */
+.interactive-card {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+.interactive-card:hover .card-icon {
+  @apply scale-110 rotate-3;
+}
+
+/* Page transition base styles */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+/* Dark mode glow effects */
+.dark .glow-text {
+  text-shadow: 0 0 10px rgba(79, 209, 197, 0.5);
+}
+
+.dark .glow-border {
+  box-shadow: 0 0 15px rgba(79, 209, 197, 0.3);
+}
+
+/* Focus states for better accessibility */
+:focus-visible {
+  outline: 2px solid hsl(var(--color-lab-blue));
+  outline-offset: 2px;
+}
+
+.dark :focus-visible {
+  outline-color: hsl(var(--color-lab-purple));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }

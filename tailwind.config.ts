@@ -64,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				lab: {
-					blue: '#0077cc',
-					green: '#28a745',
-					purple: '#6f42c1'
+					blue: 'hsl(var(--color-lab-blue))',
+					green: 'hsl(var(--color-lab-green))',
+					purple: 'hsl(var(--color-lab-purple))'
 				}
 			},
 			borderRadius: {
@@ -114,6 +114,32 @@ export default {
 					'100%': { 
 						transform: 'rotate(360deg)'
 					}
+				},
+				'shimmer': {
+					'0%': { 
+						backgroundPosition: '-200% 0'
+					},
+					'100%': { 
+						backgroundPosition: '200% 0'
+					}
+				},
+				'scale-in': {
+					'0%': { 
+						transform: 'scale(0.95)',
+						opacity: '0'
+					},
+					'100%': { 
+						transform: 'scale(1)',
+						opacity: '1'
+					}
+				},
+				'fade-in': {
+					'0%': { 
+						opacity: '0'
+					},
+					'100%': { 
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
@@ -121,8 +147,15 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite',
-				'rotate-slow': 'rotate-slow 20s linear infinite'
-			}
+				'rotate-slow': 'rotate-slow 20s linear infinite',
+				'shimmer': 'shimmer 2s linear infinite',
+				'scale-in': 'scale-in 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out'
+			},
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				display: ['Poppins', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
