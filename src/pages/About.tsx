@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Linkedin, Mail, Brain, Flask, Lightbulb, HelpCircle, Send, ArrowLeft } from 'lucide-react';
+import { Linkedin, Mail, Brain, Beaker, Lightbulb, HelpCircle, Send, ArrowLeft } from 'lucide-react';
 import SiteHeader from '@/components/layout/SiteHeader';
 import { toast } from '@/hooks/use-toast';
 
