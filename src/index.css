@@ -150,12 +150,22 @@
 }
 
 /* Physics Lab styles */
-.shadow-glow {
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
-}
-
-.dark .shadow-glow {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+@layer utilities {
+  .shadow-glow {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  }
+  
+  .dark .shadow-glow {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+  }
+  
+  .hover\:shadow-glow:hover {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+  }
+  
+  .dark .hover\:shadow-glow:hover {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+  }
 }
 
 /* Grid pattern for Physics header */
@@ -217,5 +227,5 @@
 }
 
 .dark .interactive-card {
-  @apply hover:shadow-glow;
+  @apply shadow-glow hover:shadow-glow;
 }
