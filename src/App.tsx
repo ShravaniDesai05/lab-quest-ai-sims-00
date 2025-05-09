@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,34 +22,37 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import "./App.css";
 
+// Create a client
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/biology" element={<Biology />} />
-          <Route path="/chemistry" element={<Chemistry />} />
-          <Route path="/physics" element={<Physics />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/biology/:experimentId" element={<BiologyExperiment />} />
-          <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
-          <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
-          <Route path="/biology/pollen-germination" element={<BiologyPollenGermination />} />
-          <Route path="/biology/models" element={<BiologyModels />} />
-          <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
-          <Route path="/chemistry/lab" element={<ChemistryLab />} />
-          <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/biology" element={<Biology />} />
+            <Route path="/chemistry" element={<Chemistry />} />
+            <Route path="/physics" element={<Physics />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/biology/:experimentId" element={<BiologyExperiment />} />
+            <Route path="/biology/blood-groups" element={<BiologyBloodGroups />} />
+            <Route path="/biology/catalase" element={<BiologyCatalaseExperiment />} />
+            <Route path="/biology/pollen-germination" element={<BiologyPollenGermination />} />
+            <Route path="/biology/models" element={<BiologyModels />} />
+            <Route path="/chemistry/:experimentId" element={<ChemistryExperiment />} />
+            <Route path="/chemistry/lab" element={<ChemistryLab />} />
+            <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
 
 export default App;

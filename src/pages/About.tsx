@@ -1,265 +1,379 @@
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import SiteHeader from '@/components/layout/SiteHeader';
-import { Mail, Linkedin, Info, Users, HelpCircle, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Linkedin, Mail, Brain, Flask, Lightbulb, HelpCircle, Send, ArrowLeft } from 'lucide-react';
+import SiteHeader from '@/components/layout/SiteHeader';
+import { toast } from '@/hooks/use-toast';
 
-const AboutPage = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const About = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would send the form data to a server
-    alert("Thank you for your message! We'll get back to you soon.");
+    
+    // In a real app, this would send the form data to a server
+    console.log('Form submitted:', formData);
+    
+    // Show success toast
+    toast({
+      title: "Message Sent",
+      description: "Thank you for your feedback. We'll get back to you soon!",
+      duration: 5000,
+    });
+    
+    // Reset form
+    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SiteHeader />
       
-      <main className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-              Vigyaankosh – AI-Powered Virtual Science Lab
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Your gateway to interactive scientific exploration and discovery
-            </p>
-          </div>
+      <main className="container py-8 px-4 md:px-6">
+        <div className="flex items-center mb-6">
+          <Button variant="ghost" className="mr-2 p-0" asChild>
+            <Link to="/">
+              <ArrowLeft className="h-5 w-5 mr-1" />
+              <span>Back to Lab</span>
+            </Link>
+          </Button>
+        </div>
+      
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-lab-blue via-lab-purple to-lab-green">
+              About Vigyaankosh
+            </span>
+          </h1>
+          <p className="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+            AI-Powered Virtual Science Lab
+          </p>
           
-          {/* About the Project */}
-          <section className="mb-16 scroll-mt-20" id="about">
-            <div className="flex items-center gap-3 mb-6">
-              <Info className="h-6 w-6 text-blue-600" />
-              <h2 className="text-3xl font-bold text-gray-800">About the Project</h2>
-            </div>
+          <Tabs defaultValue="about" className="mb-10">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="about">About</TabsTrigger>
+              <TabsTrigger value="team">Team</TabsTrigger>
+              <TabsTrigger value="help">Help</TabsTrigger>
+              <TabsTrigger value="mission">Mission</TabsTrigger>
+            </TabsList>
             
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all">
-              <div className="h-3 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-              <CardContent className="pt-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Vigyaankosh</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Vigyaankosh is an AI-powered virtual science lab designed to make science accessible, interactive, and fun for students of all levels. It features simulations, 3D models, intelligent chat assistance, and engaging experiments across Biology, Chemistry, and Physics.
-                </p>
-              </CardContent>
-            </Card>
-          </section>
-          
-          {/* Meet the Creators */}
-          <section className="mb-16 scroll-mt-20" id="creators">
-            <div className="flex items-center gap-3 mb-6">
-              <Users className="h-6 w-6 text-blue-600" />
-              <h2 className="text-3xl font-bold text-gray-800">Meet the Creators</h2>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Creator 1 */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all group">
-                <div className="h-3 bg-gradient-to-r from-blue-500 to-green-500"></div>
-                <CardContent className="pt-8">
-                  <div className="flex flex-col items-center">
-                    <Avatar className="h-24 w-24 mb-4 ring-2 ring-blue-200 group-hover:ring-blue-400 transition-all">
-                      <AvatarImage src="/placeholder.svg" alt="Sejal Chavan" />
-                      <AvatarFallback className="bg-blue-100 text-blue-800 text-xl">SC</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-bold mb-2">Sejal Chavan</h3>
-                    
-                    <div className="flex flex-wrap justify-center gap-4 mt-4">
-                      <HoverCard>
-                        <HoverCardTrigger asChild>
-                          <a 
-                            href="mailto:sejalchavan0209@gmail.com" 
-                            className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                          >
-                            <Mail className="h-4 w-4" />
-                            <span>Email</span>
-                          </a>
-                        </HoverCardTrigger>
-                        <HoverCardContent className="w-auto">
-                          <p className="text-sm">sejalchavan0209@gmail.com</p>
-                        </HoverCardContent>
-                      </HoverCard>
-                      
-                      <a 
-                        href="https://www.linkedin.com/in/sejalchavan" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        <Linkedin className="h-4 w-4" />
-                        <span>LinkedIn</span>
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              {/* Creator 2 */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all group">
-                <div className="h-3 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-                <CardContent className="pt-8">
-                  <div className="flex flex-col items-center">
-                    <Avatar className="h-24 w-24 mb-4 ring-2 ring-purple-200 group-hover:ring-purple-400 transition-all">
-                      <AvatarImage src="/placeholder.svg" alt="Shravani Desai" />
-                      <AvatarFallback className="bg-purple-100 text-purple-800 text-xl">SD</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-bold mb-2">Shravani Desai</h3>
-                    
-                    <div className="flex flex-wrap justify-center gap-4 mt-4">
-                      <HoverCard>
-                        <HoverCardTrigger asChild>
-                          <a 
-                            href="mailto:shravanids09@gmail.com" 
-                            className="flex items-center gap-2 text-sm text-purple-600 hover:text-purple-800 transition-colors"
-                          >
-                            <Mail className="h-4 w-4" />
-                            <span>Email</span>
-                          </a>
-                        </HoverCardTrigger>
-                        <HoverCardContent className="w-auto">
-                          <p className="text-sm">shravanids09@gmail.com</p>
-                        </HoverCardContent>
-                      </HoverCard>
-                      
-                      <a 
-                        href="https://www.linkedin.com/in/shravanidesai" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="flex items-center gap-2 text-sm text-purple-600 hover:text-purple-800 transition-colors"
-                      >
-                        <Linkedin className="h-4 w-4" />
-                        <span>LinkedIn</span>
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-          
-          {/* Our Mission */}
-          <section className="mb-16 scroll-mt-20" id="mission">
-            <div className="flex items-center gap-3 mb-6">
-              <FlaskConical className="h-6 w-6 text-blue-600" />
-              <h2 className="text-3xl font-bold text-gray-800">Our Mission</h2>
-            </div>
-            
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all bg-gradient-to-br from-blue-50 to-purple-50">
-              <CardContent className="pt-8 px-8 pb-8">
-                <p className="text-xl text-center font-medium text-gray-700 italic">
-                  "To empower students with interactive, AI-enhanced scientific experiences anytime, anywhere."
-                </p>
-                <div className="flex justify-center mt-6">
-                  <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-          
-          {/* Need Help */}
-          <section className="mb-16 scroll-mt-20" id="help">
-            <div className="flex items-center gap-3 mb-6">
-              <HelpCircle className="h-6 w-6 text-blue-600" />
-              <h2 className="text-3xl font-bold text-gray-800">Need Help?</h2>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* FAQ Section */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all">
-                <div className="h-3 bg-gradient-to-r from-amber-500 to-orange-500"></div>
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-bold mb-4">Frequently Asked Questions</h3>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="font-semibold text-gray-800">How do I start an experiment?</h4>
-                      <p className="text-gray-600 mt-1">Navigate to Biology, Chemistry, or Physics from the main menu, then select an experiment card to begin.</p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-semibold text-gray-800">How do I get badges?</h4>
-                      <p className="text-gray-600 mt-1">Complete experiments and follow the instructions. Badges are awarded automatically upon completion.</p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-semibold text-gray-800">Why is my chatbot not responding?</h4>
-                      <p className="text-gray-600 mt-1">Try refreshing the page. If issues persist, check your internet connection or contact our support team.</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              {/* Contact Form */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all">
-                <div className="h-3 bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-                  
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Enter your name" required />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" placeholder="Enter your email" type="email" required />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea id="message" placeholder="How can we help?" className="min-h-[120px]" required />
-                    </div>
-                    
-                    <div>
-                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
-                        <MessageSquare className="h-4 w-4" />
-                        Send Message
-                      </Button>
-                    </div>
-                  </form>
-                  
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <p className="text-sm text-gray-500">
-                      For direct contact or bug reports, please email:
+            {/* About Section */}
+            <TabsContent value="about" className="mt-6">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-lab-blue" />
+                    About the Project
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold mb-2">Vigyaankosh</h3>
+                    <p className="text-gray-600">
+                      Vigyaankosh is an AI-powered virtual science lab designed to make science accessible, 
+                      interactive, and fun for students of all levels. It features simulations, 3D models, 
+                      intelligent chat assistance, and engaging experiments across Biology, Chemistry, and Physics.
                     </p>
-                    <div className="flex flex-col gap-2 mt-2">
-                      <a 
-                        href="mailto:sejalchavan0209@gmail.com" 
-                        className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        sejalchavan0209@gmail.com
-                      </a>
-                      <a 
-                        href="mailto:shravanids09@gmail.com" 
-                        className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        shravanids09@gmail.com
-                      </a>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                        <Flask className="h-6 w-6 text-lab-green" />
+                      </div>
+                      <h3 className="font-medium mb-2">Interactive Experiments</h3>
+                      <p className="text-sm text-gray-600">
+                        Hands-on simulations that bring scientific concepts to life
+                      </p>
+                    </div>
+                    
+                    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                        <Brain className="h-6 w-6 text-lab-blue" />
+                      </div>
+                      <h3 className="font-medium mb-2">AI Assistance</h3>
+                      <p className="text-sm text-gray-600">
+                        Intelligent chat support to guide your scientific exploration
+                      </p>
+                    </div>
+                    
+                    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center mb-4">
+                        <Lightbulb className="h-6 w-6 text-lab-purple" />
+                      </div>
+                      <h3 className="font-medium mb-2">Learning Tools</h3>
+                      <p className="text-sm text-gray-600">
+                        Comprehensive educational resources and 3D models
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </section>
+            </TabsContent>
+            
+            {/* Team Section */}
+            <TabsContent value="team" className="mt-6">
+              <Card>
+                <CardHeader className="pb-4">
+                  <CardTitle>Meet the Creators</CardTitle>
+                  <CardDescription>The team behind Vigyaankosh Virtual Science Lab</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Team Member 1 */}
+                    <div className="flex flex-col items-center md:flex-row md:items-start gap-6">
+                      <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                        <img 
+                          src="https://api.dicebear.com/7.x/personas/svg?seed=sejal&backgroundColor=b6e3f4" 
+                          alt="Sejal Chavan" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="text-center md:text-left">
+                        <h3 className="text-lg font-semibold mb-1">Sejal Chavan</h3>
+                        <p className="text-gray-600 mb-3">Lead Developer</p>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 justify-center md:justify-start">
+                            <Mail className="h-4 w-4 text-gray-500" />
+                            <a href="mailto:sejalchavan0209@gmail.com" className="text-sm text-lab-blue hover:underline">
+                              sejalchavan0209@gmail.com
+                            </a>
+                          </div>
+                          <div className="flex items-center gap-2 justify-center md:justify-start">
+                            <Linkedin className="h-4 w-4 text-gray-500" />
+                            <a 
+                              href="https://www.linkedin.com/in/sejalchavan" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-sm text-lab-blue hover:underline"
+                            >
+                              linkedin.com/in/sejalchavan
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Team Member 2 */}
+                    <div className="flex flex-col items-center md:flex-row md:items-start gap-6">
+                      <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
+                        <img 
+                          src="https://api.dicebear.com/7.x/personas/svg?seed=shravani&backgroundColor=ffdfbf" 
+                          alt="Shravani Desai" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="text-center md:text-left">
+                        <h3 className="text-lg font-semibold mb-1">Shravani Desai</h3>
+                        <p className="text-gray-600 mb-3">UX Designer & Developer</p>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 justify-center md:justify-start">
+                            <Mail className="h-4 w-4 text-gray-500" />
+                            <a href="mailto:shravanids09@gmail.com" className="text-sm text-lab-blue hover:underline">
+                              shravanids09@gmail.com
+                            </a>
+                          </div>
+                          <div className="flex items-center gap-2 justify-center md:justify-start">
+                            <Linkedin className="h-4 w-4 text-gray-500" />
+                            <a 
+                              href="https://www.linkedin.com/in/shravanidesai" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-sm text-lab-blue hover:underline"
+                            >
+                              linkedin.com/in/shravanidesai
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            {/* Help Section */}
+            <TabsContent value="help" className="mt-6">
+              <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+                <Card className="lg:col-span-2">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <HelpCircle className="h-5 w-5 text-lab-purple" />
+                      Frequently Asked Questions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div className="border-b border-gray-100 pb-4">
+                        <h3 className="font-medium mb-2">How do I start an experiment?</h3>
+                        <p className="text-sm text-gray-600">
+                          Navigate to the subject area (Biology, Chemistry, or Physics) and select
+                          an experiment card. Follow the on-screen instructions to begin your interactive 
+                          learning experience.
+                        </p>
+                      </div>
+                      <div className="border-b border-gray-100 pb-4">
+                        <h3 className="font-medium mb-2">How do I get badges?</h3>
+                        <p className="text-sm text-gray-600">
+                          Complete experiments and challenges to earn badges. Each subject has its own 
+                          set of achievements that track your progress and mastery of concepts.
+                        </p>
+                      </div>
+                      <div className="border-b border-gray-100 pb-4">
+                        <h3 className="font-medium mb-2">Why is my chatbot not responding?</h3>
+                        <p className="text-sm text-gray-600">
+                          Ensure you have a stable internet connection. If the issue persists, 
+                          try refreshing the page or clearing your browser cache. For continued problems, 
+                          please contact our support team.
+                        </p>
+                      </div>
+                      <div className="pb-2">
+                        <h3 className="font-medium mb-2">Can I use Vigyaankosh on mobile devices?</h3>
+                        <p className="text-sm text-gray-600">
+                          Yes! Vigyaankosh is fully responsive and works on desktops, tablets, and mobile phones.
+                          Some complex simulations may perform better on larger screens.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Contact Us</CardTitle>
+                    <CardDescription>
+                      Have questions or feedback? We'd love to hear from you.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleSubmit}>
+                      <div className="space-y-4">
+                        <div>
+                          <Input
+                            placeholder="Your Name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <Input
+                            type="email"
+                            placeholder="Email Address"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <Textarea
+                            placeholder="Your Message"
+                            name="message"
+                            value={formData.message}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                        <Button type="submit" className="w-full bg-lab-blue hover:bg-blue-700">
+                          <Send className="mr-2 h-4 w-4" />
+                          Send Message
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+            
+            {/* Mission Section */}
+            <TabsContent value="mission" className="mt-6">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle>Our Mission</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl mb-8 relative overflow-hidden">
+                    <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-blue-100 rounded-full opacity-50"></div>
+                    <div className="absolute -left-4 -top-4 w-24 h-24 bg-purple-100 rounded-full opacity-30"></div>
+                    <blockquote className="relative z-10 text-xl md:text-2xl text-gray-800 italic font-light text-center">
+                      "To empower students with interactive, AI-enhanced scientific experiences anytime, anywhere."
+                    </blockquote>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+                      <h3 className="font-semibold mb-3">Our Vision</h3>
+                      <p className="text-gray-600">
+                        We envision a world where high-quality science education is accessible to all students, 
+                        regardless of location or resources. Vigyaankosh aims to bridge the gap between theoretical 
+                        knowledge and practical understanding through immersive digital experiences.
+                      </p>
+                    </div>
+                    
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+                      <h3 className="font-semibold mb-3">Our Values</h3>
+                      <div className="space-y-2">
+                        <Badge variant="outline" className="bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200">
+                          Accessibility
+                        </Badge>
+                        <Badge variant="outline" className="bg-green-50 text-green-700 hover:bg-green-100 border-green-200 ml-2">
+                          Innovation
+                        </Badge>
+                        <Badge variant="outline" className="bg-purple-50 text-purple-700 hover:bg-purple-100 border-purple-200 ml-2">
+                          Education
+                        </Badge>
+                        <Badge variant="outline" className="bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-200 ml-2">
+                          Inclusivity
+                        </Badge>
+                        <Badge variant="outline" className="bg-red-50 text-red-700 hover:bg-red-100 border-red-200 ml-2">
+                          Engagement
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="text-sm text-gray-500 border-t pt-4">
+                  Vigyaankosh was founded in 2023 as a project to revolutionize science education through technology.
+                </CardFooter>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
       
-      <footer className="bg-gray-50 border-t border-gray-200 py-8">
-        <div className="container mx-auto px-4">
-          <p className="text-center text-gray-500 text-sm">
-            © {new Date().getFullYear()} Vigyaankosh – AI-Powered Virtual Science Lab. All rights reserved.
-          </p>
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="container px-4">
+          <div className="text-center">
+            <p className="mb-4">© {new Date().getFullYear()} Vigyaankosh. All rights reserved.</p>
+            <div className="flex justify-center space-x-4">
+              <Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
+              <Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link>
+              <a href="mailto:support@vigyaankosh.edu" className="text-gray-400 hover:text-white transition-colors">
+                Contact
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
   );
 };
 
-export default AboutPage;
+export default About;
