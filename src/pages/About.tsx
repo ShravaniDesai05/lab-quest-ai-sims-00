@@ -57,11 +57,11 @@ const About = () => {
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-lab-blue via-lab-purple to-lab-green">
-              About Vigyaankosh
+              About VigyaanKosh: AI-Powered Virtual Science Labs
             </span>
           </h1>
           <p className="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
-            AI-Powered Virtual Science Lab
+            Advancing science education through AI-powered simulations
           </p>
           
           <Tabs defaultValue="about" className="mb-10">
@@ -83,9 +83,9 @@ const About = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="mb-6">
-                    <h3 className="text-xl font-bold mb-2">Vigyaankosh</h3>
+                    <h3 className="text-xl font-bold mb-2">VigyaanKosh: AI-Powered Virtual Science Labs</h3>
                     <p className="text-gray-600">
-                      Vigyaankosh is an AI-powered virtual science lab designed to make science accessible, 
+                      VigyaanKosh is an AI-powered virtual science lab designed to make science accessible, 
                       interactive, and fun for students of all levels. It features simulations, 3D models, 
                       intelligent chat assistance, and engaging experiments across Biology, Chemistry, and Physics.
                     </p>
@@ -94,7 +94,7 @@ const About = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                       <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-4">
-                        <Flask className="h-6 w-6 text-lab-green" />
+                        <Beaker className="h-6 w-6 text-lab-green" />
                       </div>
                       <h3 className="font-medium mb-2">Interactive Experiments</h3>
                       <p className="text-sm text-gray-600">
@@ -131,7 +131,7 @@ const About = () => {
               <Card>
                 <CardHeader className="pb-4">
                   <CardTitle>Meet the Creators</CardTitle>
-                  <CardDescription>The team behind Vigyaankosh Virtual Science Lab</CardDescription>
+                  <CardDescription>The team behind VigyaanKosh Virtual Science Lab</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -243,9 +243,9 @@ const About = () => {
                         </p>
                       </div>
                       <div className="pb-2">
-                        <h3 className="font-medium mb-2">Can I use Vigyaankosh on mobile devices?</h3>
+                        <h3 className="font-medium mb-2">Can I use VigyaanKosh on mobile devices?</h3>
                         <p className="text-sm text-gray-600">
-                          Yes! Vigyaankosh is fully responsive and works on desktops, tablets, and mobile phones.
+                          Yes! VigyaanKosh is fully responsive and works on desktops, tablets, and mobile phones.
                           Some complex simulations may perform better on larger screens.
                         </p>
                       </div>
@@ -322,7 +322,7 @@ const About = () => {
                       <h3 className="font-semibold mb-3">Our Vision</h3>
                       <p className="text-gray-600">
                         We envision a world where high-quality science education is accessible to all students, 
-                        regardless of location or resources. Vigyaankosh aims to bridge the gap between theoretical 
+                        regardless of location or resources. VigyaanKosh aims to bridge the gap between theoretical 
                         knowledge and practical understanding through immersive digital experiences.
                       </p>
                     </div>
@@ -350,7 +350,7 @@ const About = () => {
                   </div>
                 </CardContent>
                 <CardFooter className="text-sm text-gray-500 border-t pt-4">
-                  Vigyaankosh was founded in 2023 as a project to revolutionize science education through technology.
+                  VigyaanKosh was founded in 2023 as a project to revolutionize science education through technology.
                 </CardFooter>
               </Card>
             </TabsContent>
@@ -361,7 +361,7 @@ const About = () => {
       <footer className="bg-gray-900 text-white py-8">
         <div className="container px-4">
           <div className="text-center">
-            <p className="mb-4">© {new Date().getFullYear()} Vigyaankosh. All rights reserved.</p>
+            <p className="mb-4">© {new Date().getFullYear()} VigyaanKosh: AI-Powered Virtual Science Labs. All rights reserved.</p>
             <div className="flex justify-center space-x-4">
               <Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
               <Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link>

@@ -1,17 +1,20 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Beaker, BookOpen } from 'lucide-react';
+import { Beaker, BookOpen, LogIn } from 'lucide-react';
 
 const SiteHeader = () => {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+
   return (
     <header className="sticky top-0 z-40 w-full bg-white border-b border-gray-100 shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <Beaker className="h-8 w-8 text-lab-blue" />
+          <Beaker className="h-8 w-8 text-lab-blue animate-pulse-subtle" />
           <Link to="/" className="text-xl font-bold tracking-tight text-gray-900">
-            Vigyaankosh
+            VigyaanKosh
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-6">
@@ -37,7 +40,14 @@ const SiteHeader = () => {
               <span>About</span>
             </Link>
           </Button>
-          <Button className="bg-lab-blue hover:bg-blue-700">Get Started</Button>
+          {!isLoginPage && (
+            <Button className="bg-lab-blue hover:bg-blue-700" asChild>
+              <Link to="/login">
+                <LogIn className="mr-2 h-4 w-4" />
+                <span>Login</span>
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>
