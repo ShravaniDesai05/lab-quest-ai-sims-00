@@ -47,6 +47,15 @@ export function ThemeProvider({
     }
     
     root.classList.add(theme);
+    
+    // Update document meta theme color to match current theme
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute(
+        'content', 
+        theme === 'dark' ? '#171717' : '#ffffff'
+      );
+    }
   }, [theme]);
 
   const value = {

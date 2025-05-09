@@ -206,3 +206,16 @@
 .shimmer {
   @apply bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-shimmer;
 }
+
+/* Dark mode specific styles */
+.dark body {
+  @apply bg-gray-900;
+}
+
+.dark .glass-card {
+  @apply bg-gray-800/80 backdrop-blur-sm border border-gray-700 shadow-md;
+}
+
+.dark .interactive-card {
+  @apply hover:shadow-glow;
+}

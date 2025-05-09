@@ -10,12 +10,21 @@ console.log(`Theme: ${localStorage.getItem('vk-theme') || 'system'}`);
 
 // Initialize system preference detection for theme
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const storedTheme = localStorage.getItem('vk-theme');
+
+// Add appropriate class to root element
 document.documentElement.classList.add(
-  localStorage.getItem('vk-theme') === 'dark' || 
-  (localStorage.getItem('vk-theme') !== 'light' && prefersDark) 
+  storedTheme === 'dark' || 
+  (storedTheme !== 'light' && prefersDark) 
     ? 'dark' 
     : 'light'
 );
+
+// Add meta theme color tag
+const metaTheme = document.createElement('meta');
+metaTheme.name = 'theme-color';
+metaTheme.content = (storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark)) ? '#171717' : '#ffffff';
+document.head.appendChild(metaTheme);
 
 // Render the application
 const rootElement = document.getElementById("root");
