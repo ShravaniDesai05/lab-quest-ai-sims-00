@@ -199,8 +199,9 @@
   @apply transform -translate-y-1 shadow-lg;
 }
 
+/* Fixing circular dependency - directly define the dark mode hover card shadow */
 .dark .hover-card:hover {
-  @apply shadow-[0_0_15px_rgba(79,70,229,0.4)];
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
 }
 
 /* Button hover effects */
@@ -226,6 +227,11 @@
   @apply bg-gray-800/80 backdrop-blur-sm border border-gray-700 shadow-md;
 }
 
+/* Fix for interactive-card in dark mode to avoid circular dependency */
 .dark .interactive-card {
-  @apply shadow-glow hover:shadow-glow;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+.dark .interactive-card:hover {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
 }
