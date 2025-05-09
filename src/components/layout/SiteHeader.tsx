@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Beaker, BookOpen, LogIn } from 'lucide-react';
+import { Beaker, BookOpen, LogIn, Home } from 'lucide-react';
 
 const SiteHeader = () => {
   const location = useLocation();
@@ -18,6 +18,10 @@ const SiteHeader = () => {
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-6">
+          <Link to="/" className="text-sm font-medium text-gray-700 hover:text-lab-blue transition-colors flex items-center gap-1">
+            <Home className="h-4 w-4" />
+            Home
+          </Link>
           <Link to="/biology" className="text-sm font-medium text-gray-700 hover:text-lab-green transition-colors">
             Biology
           </Link>

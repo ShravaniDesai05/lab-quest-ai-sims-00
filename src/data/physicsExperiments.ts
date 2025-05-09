@@ -2,34 +2,6 @@
 import { PhysicsExperiments } from '@/types/experiments';
 
 export const experiments: PhysicsExperiments = {
-  'sound-speed': {
-    title: 'Speed of Sound via Echo',
-    description: 'Measure the speed of sound by calculating the time it takes for an echo to return from a distant object.',
-    difficulty: 'Intermediate',
-    duration: '30 minutes',
-    content: 'This experiment demonstrates how sound waves travel through air and reflect off surfaces.',
-    steps: [
-      'Find a large flat surface like a wall or cliff face',
-      'Stand at a measured distance from the surface',
-      'Create a loud sharp sound (clap or whistle)',
-      'Measure the time until the echo returns',
-      'Calculate the speed using distance and time'
-    ]
-  },
-  'pendulum': {
-    title: 'Pendulum for Newton\'s Laws',
-    description: 'Investigate the factors affecting pendulum motion and observe Newton\'s laws of motion in action.',
-    difficulty: 'Beginner',
-    duration: '25 minutes',
-    content: 'This experiment explores the principles of simple harmonic motion and conservation of energy.',
-    steps: [
-      'Set up a simple pendulum with string and weight',
-      'Measure the length of the pendulum',
-      'Release the pendulum from different angles',
-      'Time the period of oscillation',
-      'Calculate the relationship between length and period'
-    ]
-  },
   'refraction': {
     title: 'Refraction of Light',
     description: 'Observe how light changes direction when passing from one medium to another with different refractive indices.',

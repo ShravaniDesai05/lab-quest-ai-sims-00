@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Brain, Atom, Plus, Send, X, Zap, Lightbulb } from 'lucide-react';
+import { Brain, Atom, Plus, Send, X, Zap, Lightbulb, AlertCircle } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
 const PhysicsChatBot = () => {
+  const { toast } = useToast();
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -18,16 +20,20 @@ const PhysicsChatBot = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showNotification, setShowNotification] = useState(true);
   const [isListening, setIsListening] = useState(false);
+  const [apiKey, setApiKey] = useState<string | null>(null);
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   
+  // Check for API key on component mount
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isExpanded) {
-        setShowNotification(true);
-      }
-    }, 10000);
-    
-    return () => clearTimeout(timer);
-  }, [isExpanded]);
+    // Try to get API key from localStorage first (for development purposes)
+    const storedApiKey = localStorage.getItem('VIGYAANKOSH_API_KEY');
+    if (storedApiKey) {
+      setApiKey(storedApiKey);
+    } else {
+      // No API key found, show input form when user expands the chatbot
+      console.log('No API key found for chatbot');
+    }
+  }, []);
   
   const handleSend = () => {
     if (!input.trim()) return;
@@ -35,6 +41,23 @@ const PhysicsChatBot = () => {
     // Add user message
     setMessages([...messages, { role: 'user', content: input }]);
     setIsLoading(true);
+    
+    // Check if API key exists
+    if (!apiKey) {
+      setTimeout(() => {
+        setMessages((prevMessages) => [
+          ...prevMessages, 
+          { 
+            role: 'assistant', 
+            content: "I need an API key to function properly. Please click the key icon and enter your API key." 
+          }
+        ]);
+        setIsLoading(false);
+        setInput('');
+        setShowApiKeyInput(true);
+      }, 400);
+      return;
+    }
     
     // Simulate AI response with faster response time
     setTimeout(() => {
@@ -91,10 +114,36 @@ const PhysicsChatBot = () => {
           setInput("What is the aim of this experiment?");
         }, 2000);
       } else {
-        alert("Voice input is not supported in your browser. Please use Chrome or Edge for this feature.");
+        toast({
+          title: "Voice Input Not Supported",
+          description: "Voice input is not supported in your browser. Please use Chrome or Edge for this feature.",
+          variant: "destructive"
+        });
       }
     } else {
       setIsListening(false);
+    }
+  };
+
+  const handleApiKeySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newApiKey = formData.get('apiKey') as string;
+    
+    if (newApiKey && newApiKey.trim()) {
+      // Save API key to localStorage for development purposes
+      localStorage.setItem('VIGYAANKOSH_API_KEY', newApiKey);
+      setApiKey(newApiKey);
+      setShowApiKeyInput(false);
+      toast({
+        title: "API Key Saved",
+        description: "Your API key has been saved for this session.",
+      });
+      
+      setMessages((prevMessages) => [...prevMessages, { 
+        role: 'assistant', 
+        content: "Great! I'm now fully functional. How can I help you learn about physics today?" 
+      }]);
     }
   };
 
@@ -134,40 +183,99 @@ const PhysicsChatBot = () => {
               <Atom className="h-5 w-5 text-cyan-300 opacity-70 absolute" />
             </div>
             <div className="font-medium">Sci AI Mentor</div>
-            <div className="text-xs bg-green-500/30 text-green-300 px-1.5 rounded">Online</div>
+            <div className="text-xs bg-green-500/30 text-green-300 px-1.5 rounded">
+              {apiKey ? "Online" : "API Key Required"}
+            </div>
           </div>
-          <Button variant="ghost" size="icon" className="text-white hover:bg-blue-800/50" onClick={toggleExpand}>
-            <X className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-1">
+            {!apiKey && (
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-white hover:bg-blue-800/50"
+                onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+              >
+                <Zap className="h-4 w-4" />
+              </Button>
+            )}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white hover:bg-blue-800/50" 
+              onClick={toggleExpand}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-blue-50 to-white">
-        {messages.map((message, index) => (
-          <div 
-            key={index} 
-            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
-          >
-            <div 
-              className={`max-w-[80%] rounded-lg px-4 py-2.5 ${
-                message.role === 'user' 
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-none' 
-                  : 'bg-gray-100 text-gray-800 rounded-tl-none'
-              }`}
-            >
-              {message.content}
+        {showApiKeyInput ? (
+          <form onSubmit={handleApiKeySubmit} className="bg-white p-4 rounded-lg shadow-sm border border-blue-100">
+            <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
+              <AlertCircle className="h-4 w-4 text-amber-500" />
+              API Key Required
+            </h3>
+            <p className="text-xs text-gray-600 mb-3">
+              Please enter your API key to enable the AI assistant functionality.
+            </p>
+            <Input 
+              name="apiKey"
+              type="password"
+              placeholder="Enter your API key"
+              className="mb-3 text-sm"
+              required
+            />
+            <div className="flex justify-end gap-2">
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm" 
+                onClick={() => setShowApiKeyInput(false)}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" size="sm">Save Key</Button>
             </div>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="max-w-[80%] rounded-lg px-4 py-2 bg-gray-100 rounded-tl-none">
-              <div className="flex space-x-1 items-center">
-                <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce"></div>
-                <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+          </form>
+        ) : (
+          <>
+            {messages.map((message, index) => (
+              <div 
+                key={index} 
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
+              >
+                <div 
+                  className={`max-w-[80%] rounded-lg px-4 py-2.5 ${
+                    message.role === 'user' 
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-none' 
+                      : 'bg-gray-100 text-gray-800 rounded-tl-none'
+                  }`}
+                >
+                  {message.content}
+                </div>
               </div>
-            </div>
-          </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="max-w-[80%] rounded-lg px-4 py-2 bg-gray-100 rounded-tl-none">
+                  <div className="flex space-x-1 items-center">
+                    <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {!apiKey && !showApiKeyInput && (
+              <div className="flex justify-center">
+                <div className="bg-amber-50 text-amber-800 rounded-lg px-4 py-3 text-xs max-w-[90%] text-center">
+                  <p className="font-medium mb-1">API Key Missing</p>
+                  <p>Click the ⚡ icon in the header to add your API key</p>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </CardContent>
       <CardFooter className="p-3 border-t bg-white">
@@ -193,12 +301,13 @@ const PhysicsChatBot = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             className="flex-1 focus-visible:ring-blue-500"
+            disabled={!apiKey}
           />
           <Button 
             type="submit" 
             size="icon" 
             onClick={handleSend} 
-            disabled={!input.trim() || isLoading}
+            disabled={!input.trim() || isLoading || !apiKey}
             className="rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
           >
             <Send className="h-4 w-4" />

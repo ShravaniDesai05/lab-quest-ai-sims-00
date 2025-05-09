@@ -1,29 +1,22 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
+import { AlertCircle } from 'lucide-react';
 
 const PendulumSimulation = () => {
-  const [pendulumAngle, setPendulumAngle] = useState(0);
-
-  const handlePendulumAnimation = () => {
-    setPendulumAngle(prev => -prev);
-  };
-
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <div className="w-20 h-40 relative">
-        <div 
-          className="absolute top-0 left-1/2 w-1 h-32 bg-gray-300 origin-top"
-          style={{ transform: `rotate(${pendulumAngle}deg)` }}
-        >
-          <div className="absolute bottom-0 -left-2 w-5 h-5 bg-purple-500 rounded-full" />
-        </div>
-      </div>
+    <div className="flex flex-col items-center space-y-4 p-6 border border-red-100 rounded-md bg-red-50">
+      <AlertCircle className="h-12 w-12 text-red-500" />
+      <h3 className="text-lg font-semibold text-red-700">Experiment Removed</h3>
+      <p className="text-center text-sm text-red-600">
+        This experiment has been removed from our curriculum.
+        Please select another experiment from the Physics page.
+      </p>
       <Button 
-        onClick={handlePendulumAnimation}
         variant="outline"
+        onClick={() => window.history.back()}
       >
-        Start Pendulum
+        Go Back
       </Button>
     </div>
   );
