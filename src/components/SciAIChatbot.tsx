@@ -7,6 +7,7 @@ import { Brain, Atom, Dna, Send, X, Zap, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import geminiAPI from '@/utils/geminiAPI';
 import { Textarea } from '@/components/ui/textarea';
+import { supabase, getCurrentUser } from '@/utils/supabaseClient';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -30,8 +31,9 @@ const SciAIChatbot = () => {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   
-  // Check for API key on component mount
+  // Check for API key and user on component mount
   useEffect(() => {
     const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
     
@@ -48,6 +50,27 @@ const SciAIChatbot = () => {
         console.log('No Gemini API key found');
       }
     }
+    
+    // Check for authenticated user
+    const fetchUser = async () => {
+      const { user } = await getCurrentUser();
+      setCurrentUser(user);
+    };
+    
+    fetchUser();
+    
+    // Set up auth listener
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        setCurrentUser(session?.user || null);
+      } else if (event === 'SIGNED_OUT') {
+        setCurrentUser(null);
+      }
+    });
+    
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
   }, []);
 
   // Scroll to bottom of messages
@@ -58,6 +81,30 @@ const SciAIChatbot = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  // Store conversation in Supabase
+  const storeConversation = async (userMessage: string, aiResponse: string) => {
+    // Only store if user is logged in
+    if (!currentUser) return;
+    
+    try {
+      const { error } = await supabase
+        .from('conversations')
+        .insert([
+          { 
+            user_id: currentUser.id,
+            user_message: userMessage,
+            ai_response: aiResponse
+          }
+        ]);
+        
+      if (error) {
+        console.error('Error storing conversation:', error);
+      }
+    } catch (error) {
+      console.error('Error storing conversation:', error);
+    }
+  };
   
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -66,6 +113,7 @@ const SciAIChatbot = () => {
     const userMessage: Message = { role: 'user', content: input };
     setMessages(prevMessages => [...prevMessages, userMessage]);
     setIsLoading(true);
+    const userMessageText = input;
     setInput('');
     
     // Check if API key exists
@@ -86,13 +134,17 @@ const SciAIChatbot = () => {
     
     try {
       // Call Gemini API with user's message
-      const assistantResponse = await geminiAPI(input);
+      const assistantResponse = await geminiAPI(userMessageText);
       
       // Add assistant response to messages
       setMessages(prevMessages => [
         ...prevMessages, 
         { role: 'assistant', content: assistantResponse }
       ]);
+      
+      // Store conversation in Supabase if user is logged in
+      await storeConversation(userMessageText, assistantResponse);
+      
     } catch (error) {
       console.error("Error getting response from Gemini:", error);
       

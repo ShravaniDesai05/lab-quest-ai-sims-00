@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -5,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/components/ui/use-toast';
 import { Mail, Lock, TestTube, Key } from 'lucide-react';
+import { signIn, signUp, getCurrentUser } from '@/utils/supabaseClient';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +14,21 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  
+  // Check if user is already logged in
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { user } = await getCurrentUser();
+      if (user) {
+        navigate('/');
+      }
+    };
+    
+    checkAuth();
+  }, [navigate]);
   
   // Animation states
   const [bubbleActive, setBubbleActive] = useState(false);
@@ -27,33 +42,52 @@ const Login = () => {
     }
   }, [password]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please enter both email and password",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsLoading(true);
     
-    // Simulate login process
-    setTimeout(() => {
-      setIsLoading(false);
-      if (email && password) {
-        setShowSuccess(true);
-        toast({
-          title: "Access Granted",
-          description: "Welcome Scientist",
-          duration: 3000,
-        });
-        
-        // Redirect after door animation completes
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
+    try {
+      let response;
+      
+      if (isRegistering) {
+        response = await signUp(email, password);
       } else {
-        toast({
-          title: "Login Failed",
-          description: "Please check your credentials",
-          variant: "destructive",
-        });
+        response = await signIn(email, password);
       }
-    }, 1500);
+      
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+      
+      setShowSuccess(true);
+      toast({
+        title: isRegistering ? "Registration Successful" : "Access Granted",
+        description: isRegistering ? "Welcome! Your account has been created." : "Welcome Scientist",
+        duration: 3000,
+      });
+      
+      // Redirect after door animation completes
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (error) {
+      console.error("Authentication error:", error);
+      toast({
+        title: isRegistering ? "Registration Failed" : "Login Failed",
+        description: error instanceof Error ? error.message : "Please check your credentials",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -101,7 +135,7 @@ const Login = () => {
           
           {/* Login form */}
           <div className="mt-10 bg-[#0000001a] backdrop-blur-sm p-8 rounded-xl border border-gray-800 shadow-xl">
-            <form className="space-y-6" onSubmit={handleLogin}>
+            <form className="space-y-6" onSubmit={handleAuth}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
                   Email Address
@@ -136,7 +170,7 @@ const Login = () => {
                     id="password"
                     name="password"
                     type="password"
-                    autoComplete="current-password"
+                    autoComplete={isRegistering ? "new-password" : "current-password"}
                     required
                     className="pl-10 bg-gray-900/50 border-gray-700 text-white focus:border-blue-500"
                     placeholder="••••••••"
@@ -204,7 +238,7 @@ const Login = () => {
                     </div>
                   ) : (
                     <span className="flex items-center justify-center">
-                      <Key className="mr-2 h-4 w-4" /> Log In to Lab
+                      <Key className="mr-2 h-4 w-4" /> {isRegistering ? "Sign Up" : "Log In to Lab"}
                     </span>
                   )}
                 </Button>
@@ -213,10 +247,14 @@ const Login = () => {
 
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-300">
-                Don't have an account?{' '}
-                <Link to="/signup" className="font-medium text-blue-400 hover:text-blue-300">
-                  Sign up here
-                </Link>
+                {isRegistering ? "Already have an account? " : "Don't have an account? "}
+                <button 
+                  type="button"
+                  onClick={() => setIsRegistering(!isRegistering)} 
+                  className="font-medium text-blue-400 hover:text-blue-300"
+                >
+                  {isRegistering ? "Log in here" : "Sign up here"}
+                </button>
               </p>
             </div>
           </div>

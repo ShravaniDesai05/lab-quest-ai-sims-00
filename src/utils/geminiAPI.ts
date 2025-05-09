@@ -10,7 +10,7 @@ const geminiAPI = async (prompt: string): Promise<string> => {
     }
 
     // The Gemini API endpoint
-    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent";
+    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent";
     
     const response = await fetch(`${endpoint}?key=${apiKey}`, {
       method: 'POST',
