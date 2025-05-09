@@ -21,6 +21,7 @@ import ChemistryLab from "./pages/ChemistryLab";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import About from "./pages/About";
+import SciAIChatbot from "./components/SciAIChatbot";
 import "./App.css";
 
 // Create a client
@@ -51,6 +52,7 @@ const App = () => (
               <Route path="/physics/:experimentId" element={<PhysicsExperiment />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <SciAIChatbot />
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
