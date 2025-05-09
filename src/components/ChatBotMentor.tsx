@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -17,6 +17,25 @@ const ChatBotMentor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [apiKey, setApiKey] = useState<string | null>(null);
+  
+  // Check for API key on component mount
+  useEffect(() => {
+    const envApiKey = import.meta.env.VITE_VIGYAANKOSH_API_KEY;
+    
+    if (envApiKey) {
+      console.log('API key loaded from environment for biology mentor');
+      setApiKey(envApiKey);
+    } else {
+      // Try to get API key from localStorage as fallback
+      const storedApiKey = localStorage.getItem('VIGYAANKOSH_API_KEY');
+      if (storedApiKey) {
+        setApiKey(storedApiKey);
+      } else {
+        console.log('No API key found for biology mentor');
+      }
+    }
+  }, []);
   
   const handleSend = () => {
     if (!input.trim()) return;
@@ -126,6 +145,11 @@ const ChatBotMentor = () => {
               <Dna className="h-5 w-5 text-white opacity-70 absolute" />
             </div>
             <div className="font-medium">Sci AI Mentor</div>
+            {apiKey ? (
+              <div className="text-xs bg-green-500/30 text-green-300 px-1.5 rounded">
+                Online
+              </div>
+            ) : null}
           </div>
           <Button variant="ghost" size="icon" className="text-white hover:bg-green-700/50" onClick={() => setIsExpanded(false)}>
             <X className="h-4 w-4" />
@@ -160,6 +184,14 @@ const ChatBotMentor = () => {
             </div>
           </div>
         )}
+        {!apiKey && (
+          <div className="flex justify-center">
+            <div className="bg-amber-50 text-amber-800 rounded-lg px-4 py-3 text-xs max-w-[90%] text-center">
+              <p className="font-medium mb-1">API Key Missing</p>
+              <p>Please set the VITE_VIGYAANKOSH_API_KEY in your .env file</p>
+            </div>
+          </div>
+        )}
       </CardContent>
       <CardFooter className="p-2 border-t bg-white">
         <div className="flex w-full items-center space-x-2">
@@ -184,12 +216,13 @@ const ChatBotMentor = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             className="flex-1"
+            disabled={!apiKey}
           />
           <Button 
             type="submit" 
             size="icon" 
             onClick={handleSend} 
-            disabled={!input.trim() || isLoading}
+            disabled={!input.trim() || isLoading || !apiKey}
             className="rounded-full bg-lab-green hover:bg-green-600"
           >
             <Send className="h-4 w-4" />

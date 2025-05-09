@@ -25,13 +25,20 @@ const PhysicsChatBot = () => {
   
   // Check for API key on component mount
   useEffect(() => {
-    // Try to get API key from localStorage first (for development purposes)
-    const storedApiKey = localStorage.getItem('VIGYAANKOSH_API_KEY');
-    if (storedApiKey) {
-      setApiKey(storedApiKey);
+    const envApiKey = import.meta.env.VITE_VIGYAANKOSH_API_KEY;
+    
+    if (envApiKey) {
+      console.log('API key loaded from environment');
+      setApiKey(envApiKey);
     } else {
-      // No API key found, show input form when user expands the chatbot
-      console.log('No API key found for chatbot');
+      // Try to get API key from localStorage as fallback
+      const storedApiKey = localStorage.getItem('VIGYAANKOSH_API_KEY');
+      if (storedApiKey) {
+        setApiKey(storedApiKey);
+      } else {
+        // No API key found, show input form when user expands the chatbot
+        console.log('No API key found for chatbot');
+      }
     }
   }, []);
   
