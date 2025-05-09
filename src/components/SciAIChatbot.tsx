@@ -9,6 +9,12 @@ import geminiAPI from '@/utils/geminiAPI';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase, getCurrentUser } from '@/utils/supabaseClient';
 
+// Add interface for web speech API
+interface Window {
+  SpeechRecognition: any;
+  webkitSpeechRecognition: any;
+}
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
@@ -186,21 +192,21 @@ const SciAIChatbot = () => {
         // This is just the interface - in a real implementation, we'd process voice input
         setIsListening(true);
         
-        // Access the Web Speech API
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        // Access the Web Speech API with proper type handling
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
         
         recognition.lang = 'en-US';
         recognition.continuous = false;
         recognition.interimResults = false;
         
-        recognition.onresult = (event) => {
+        recognition.onresult = (event: any) => {
           const transcript = event.results[0][0].transcript;
           setInput(transcript);
           setIsListening(false);
         };
         
-        recognition.onerror = (event) => {
+        recognition.onerror = (event: any) => {
           console.error('Speech recognition error', event.error);
           setIsListening(false);
           toast({

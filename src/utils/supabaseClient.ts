@@ -1,13 +1,14 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// These environment variables need to be set after connecting to Supabase
-// through the Lovable Supabase integration
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Provide default fallback values for development purposes
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
 
-if (!supabaseUrl || !supabaseAnonKey) {
+// Log warning if environment variables are missing
+if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
   console.error('Supabase URL or Anon Key is missing. Please connect to Supabase through the Lovable integration.');
+  console.log('Using fallback values for development - actual authentication and data storage will not work until you connect to Supabase.');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
